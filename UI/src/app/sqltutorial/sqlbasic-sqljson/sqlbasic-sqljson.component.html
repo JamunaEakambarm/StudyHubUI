@@ -1,0 +1,223 @@
+
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div><div class="container-card">
+    <h1>JSON Data Handling in SQL</h1>
+  
+    <div class="section">
+      <h2>What is JSON in SQL?</h2>
+      <p>
+        JSON (<strong>JavaScript Object Notation</strong>) is a lightweight format for storing and 
+        transporting data. Many modern databases support <strong>JSON data types</strong> and provide 
+        functions for querying and manipulating JSON data.
+      </p>
+      <h2>Why Use JSON in SQL?</h2>
+      <ul>        
+        <li>Stores <strong>semi-structured data</strong> within relational databases.</li>
+        <li>Helps in integrating with <strong>APIs and NoSQL-like storage</strong>.</li>
+        <li>Enables <strong>flexible and scalable data storage</strong>.</li>
+      </ul>
+    </div> 
+    
+  
+    <div class="section">
+      <h1>Types of JSON Data Handling in SQL</h1>
+    
+      <h2>Storing JSON Data in SQL</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Action</th>
+            <th>SQL Query</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Create Table with JSON Column</td>
+            <td>
+                <code>
+                    CREATE TABLE Employees (
+                        id INT PRIMARY KEY,
+                        name VARCHAR(100),
+                        details JSON  -- JSON column
+                    );
+                        </code>
+            </td>
+          </tr>
+          <tr>
+            <td>Insert JSON Data</td>
+            <td>
+                <pre><code>INSERT INTO Employees (id, name, details)  
+                    VALUES (1, 'John Doe', '{{ &#123;&quot;age&quot;: 30, &quot;department&quot;: &quot;IT&quot;, &quot;skills&quot;: [&quot;SQL&quot;, &quot;Python&quot;] &#125; }}');</code></pre>
+                        
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+<div class="section">
+      <h2>Querying JSON Data</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Query Type</th>
+            <th>SQL Query</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Extract Single Value</td>
+            <td>
+                <code>SELECT name, details->>'$.department' AS Department FROM Employees;</code>            </td>
+          </tr>
+          <tr>
+            <td>Extract Array Value</td>
+            <td>
+                <code>SELECT name, JSON_EXTRACT(details, '$.skills[0]') AS First_Skill FROM Employees;</code>
+            </td>
+          </tr>
+          <tr>
+            <td>Convert JSON Array to Rows</td>
+            <td>
+                <code>SELECT * FROM Employees, 
+                    JSON_TABLE(details, '$.skills[*]' COLUMNS (skill VARCHAR(50) PATH '$')) AS SkillsTable;</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="section">
+      <h2> Modifying JSON Data</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Modification</th>
+            <th>SQL Query</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Update JSON Field</td>
+            <td>
+                <code>UPDATE Employees 
+                    SET details = JSON_SET(details, '$.age', 35) 
+                    WHERE id = 1;</code>
+             
+            </td>
+          </tr>
+          <tr>
+            <td>Add New JSON Key</td>
+            <td>
+                <code>UPDATE Employees 
+                    SET details = JSON_INSERT(details, '$.location', 'New York') 
+                    WHERE id = 1;</code>
+            </td>
+          </tr>
+          <tr>
+            <td>Remove JSON Key</td>
+            <td>
+                <code>UPDATE Employees 
+                    SET details = JSON_REMOVE(details, '$.skills') 
+                    WHERE id = 1;</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="section">
+      <h2> Indexing JSON Data</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Action</th>
+            <th>SQL Query</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Create Index on JSON Key</td>
+            <td>
+                <code>CREATE INDEX idx_json_department 
+                    ON Employees ((details->>'$.department'));</code>
+             
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="section">
+      <h2> JSON vs Relational Storage</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>JSON Storage</th>
+            <th>Relational Storage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Structure</strong></td>
+            <td>Flexible</td>
+            <td>Strict Schema</td>
+          </tr>
+          <tr>
+            <td><strong>Querying</strong></td>
+            <td>Complex</td>
+            <td>Simple & Indexed</td>
+          </tr>
+          <tr>
+            <td><strong>Performance</strong></td>
+            <td>Slower for large data</td>
+            <td>Optimized for joins</td>
+          </tr>
+          <tr>
+            <td><strong>Use Case</strong></td>
+            <td>Semi-structured data</td>
+            <td>Structured data</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="section">
+      <h2>Limitations of JSON in SQL</h2>
+      <ul>
+        <li>🚫 <strong>Complex Queries:</strong> JSON queries can be complex and less efficient.</li>
+        <li>🚫 <strong>Performance:</strong> JSON data retrieval may be slower for large datasets.</li>
+        <li>🚫 <strong>Indexing:</strong> Indexing JSON data can be challenging.</li>
+      </ul>
+  </div>
+    <div class="section">
+      <h2>Conclusion</h2>
+      <ul>
+        <li>JSON handling in SQL allows flexible data storage and manipulation.</li>
+        <li>Querying JSON using functions like JSON_VALUE and JSON_TABLE.</li>
+        <li>Modifying JSON using JSON_SET, JSON_INSERT, and JSON_REMOVE.</li>
+        <li>Indexing JSON helps improve performance.</li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>

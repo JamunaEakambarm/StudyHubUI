@@ -1,0 +1,324 @@
+
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>
+<!-- sql-datatype.component.html -->
+<div class="container">
+    <h1>SQL Server Data Types</h1>
+    
+    <!-- Exact Numerics -->
+    <div class="category">
+      <h2>Exact Numerics</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Data Type</th>
+            <th>Description</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>tinyint</td>
+            <td>Stores integers from 0 to 255.</td>
+            <td><code>CREATE TABLE Employees (Age tinyint);</code></td>
+          </tr>
+          <tr>
+            <td>smallint</td>
+            <td>Stores integers from -32,768 to 32,767.</td>
+            <td><code>CREATE TABLE Employees (EmployeeID smallint);</code></td>
+          </tr>
+          <tr>
+            <td>int</td>
+            <td>Stores integers from -2,147,483,648 to 2,147,483,647.</td>
+            <td><code>CREATE TABLE Employees (EmployeeID int);</code></td>
+          </tr>
+          <tr>
+            <td>bigint</td>
+            <td>Stores very large integers.</td>
+            <td><code>CREATE TABLE Transactions (TransactionAmount bigint);</code></td>
+          </tr>
+          <tr>
+            <td>bit</td>
+            <td>Stores Boolean values (0, 1, NULL).</td>
+            <td><code>CREATE TABLE Employees (IsActive bit);</code></td>
+          </tr>
+          <tr>
+            <td>decimal/numeric</td>
+            <td>Stores exact numeric values with precision and scale.</td>
+            <td><code>CREATE TABLE Products (Price decimal(10, 2));</code></td>
+          </tr>
+          <tr>
+            <td>money</td>
+            <td>Stores monetary values.</td>
+            <td><code>CREATE TABLE Products (Price money);</code></td>
+          </tr>
+          <tr>
+            <td>smallmoney</td>
+            <td>Stores smaller monetary values.</td>
+            <td><code>CREATE TABLE Transactions (Amount smallmoney);</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- Approximate Numerics -->
+    <div class="category">
+      <h2>Approximate Numerics</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Data Type</th>
+            <th>Description</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>float</td>
+            <td>Stores approximate numeric values with floating decimal points.</td>
+            <td><code>CREATE TABLE Measurements (Value float);</code></td>
+          </tr>
+          <tr>
+            <td>real</td>
+            <td>Similar to float but with less precision.</td>
+            <td><code>CREATE TABLE Temperatures (Temp real);</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Date and Time -->
+    <div class="category">
+      <h2>Date and Time</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Data Type</th>
+            <th>Description</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>date</td>
+            <td>Stores only the date part.</td>
+            <td><code>CREATE TABLE Events (EventDate date);</code></td>
+          </tr>
+          <tr>
+            <td>time</td>
+            <td>Stores only the time part.</td>
+            <td><code>CREATE TABLE WorkHours (StartTime time);</code></td>
+          </tr>
+          <tr>
+            <td>datetime2</td>
+            <td>Stores date and time with greater precision.</td>
+            <td><code>CREATE TABLE Appointments (Appointment datetime2);</code></td>
+          </tr>
+          <tr>
+            <td>datetimeoffset</td>
+            <td>Stores date and time with time zone offset.</td>
+            <td><code>CREATE TABLE Meetings (MeetingTime datetimeoffset);</code></td>
+          </tr>
+          <tr>
+            <td>datetime</td>
+            <td>Stores both date and time, with less precision.</td>
+            <td><code>CREATE TABLE Logs (Timestamp datetime);</code></td>
+          </tr>
+          <tr>
+            <td>smalldatetime</td>
+            <td>Stores date and time with less precision.</td>
+            <td><code>CREATE TABLE Events (EventTime smalldatetime);</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Character Strings -->
+    <div class="category">
+      <h2>Character Strings</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Data Type</th>
+            <th>Description</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>char</td>
+            <td>Fixed-length character data.</td>
+            <td><code>CREATE TABLE Users (Username char(10));</code></td>
+          </tr>
+          <tr>
+            <td>varchar</td>
+            <td>Variable-length character data.</td>
+            <td><code>CREATE TABLE Users (Description varchar(255));</code></td>
+          </tr>
+          <tr>
+            <td>text</td>
+            <td>Variable-length character data, deprecated.</td>
+            <td><code>CREATE TABLE Documents (Content text);</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Unicode Character Strings -->
+    <div class="category">
+      <h2>Unicode Character Strings</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Data Type</th>
+            <th>Description</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>nchar</td>
+            <td>Fixed-length Unicode data.</td>
+            <td><code>CREATE TABLE Users (Name nchar(100));</code></td>
+          </tr>
+          <tr>
+            <td>nvarchar</td>
+            <td>Variable-length Unicode data.</td>
+            <td><code>CREATE TABLE Products (Name nvarchar(200));</code></td>
+          </tr>
+          <tr>
+            <td>ntext</td>
+            <td>Variable-length Unicode text data, deprecated.</td>
+            <td><code>CREATE TABLE Notes (Text ntext);</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Binary Strings -->
+    <div class="category">
+      <h2>Binary Strings</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Data Type</th>
+            <th>Description</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>binary</td>
+            <td>Fixed-length binary data.</td>
+            <td><code>CREATE TABLE Files (FileHash binary(16));</code></td>
+          </tr>
+          <tr>
+            <td>varbinary</td>
+            <td>Variable-length binary data.</td>
+            <td><code>CREATE TABLE Files (Data varbinary(max));</code></td>
+          </tr>
+          <tr>
+            <td>image</td>
+            <td>Stores large binary data, deprecated.</td>
+            <td><code>CREATE TABLE Images (Photo image);</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Other Data Types -->
+    <div class="category">
+      <h2>Other Data Types</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Data Type</th>
+            <th>Description</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>cursor</td>
+            <td>Used to hold a reference to a cursor.</td>
+            <td><code>DECLARE MyCursor CURSOR FOR SELECT * FROM Employees;</code></td>
+          </tr>
+          <tr>
+            <td>geography</td>
+            <td>Stores spatial data (geographic coordinates).</td>
+            <td><code>CREATE TABLE Locations (GeoLocation geography);</code></td>
+          </tr>
+          <tr>
+            <td>geometry</td>
+            <td>Stores spatial data (geometric shapes).</td>
+            <td><code>CREATE TABLE Shapes (Shape geometry);</code></td>
+          </tr>
+          <tr>
+            <td>hierarchyid</td>
+            <td>Stores hierarchical data.</td>
+            <td><code>CREATE TABLE Organization (Manager hierarchyid);</code></td>
+          </tr>
+          <tr>
+            <td>json</td>
+            <td>Stores JSON-formatted data.</td>
+            <td><code>CREATE TABLE Orders (OrderData json);</code></td>
+          </tr>
+          <tr>
+            <td>vector</td>
+            <td>Stores vectors for machine learning.</td>
+            <td><code>CREATE TABLE MLData (Feature vector);</code></td>
+          </tr>
+          <tr>
+            <td>rowversion</td>
+            <td>Used for versioning rows in a table.</td>
+            <td><code>CREATE TABLE Employees (RowVersion rowversion);</code></td>
+          </tr>
+          <tr>
+            <td>sql_variant</td>
+            <td>Stores values of any SQL Server data type.</td>
+            <td><code>CREATE TABLE Products (ProductData sql_variant);</code></td>
+          </tr>
+          <tr>
+            <td>table</td>
+            <td>Stores a result set in a variable.</td>
+            <td><code>DECLARE &#64;ProductTable table (ProductID int, Name varchar(100));</code></td>
+          </tr>
+          <tr>
+            <td>uniqueidentifier</td>
+            <td>Stores GUID (Globally Unique Identifier).</td>
+            <td><code>CREATE TABLE Orders (OrderID uniqueidentifier);</code></td>
+          </tr>
+          <tr>
+            <td>xml</td>
+            <td>Stores XML-formatted data.</td>
+            <td><code>CREATE TABLE Products (ProductInfo xml);</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>

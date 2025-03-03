@@ -1,0 +1,165 @@
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>
+
+<div class="container-card">
+    <h1>Full-Text Search in SQL</h1>
+  
+    <div class="section">
+      <h2>What is Full-Text Search?</h2>
+      <p class="para-start">
+        Full-Text Search (FTS) is a technique used in SQL databases to search for text efficiently.
+        It enables complex searching capabilities beyond the <strong>LIKE</strong> operator.
+      </p>
+      <ul>
+        <li> Faster than <strong>LIKE</strong> for large text fields.</li>
+        <li> Supports advanced searches like boolean and phrase search.</li>
+        <li> Helps in searching natural language queries.</li>
+      </ul>
+    </div>
+  
+    <div class="section">
+      <h2>Types of Full-Text Search</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Basic Search</strong></td>
+            <td>Searches for single or multiple words.</td>
+          </tr>
+          <tr>
+            <td><strong>Phrase Search</strong></td>
+            <td>Finds exact phrases in text.</td>
+          </tr>
+          <tr>
+            <td><strong>Boolean Search</strong></td>
+            <td>Uses logical operators (AND, OR, NOT) for complex queries.</td>
+          </tr>
+          <tr>
+            <td><strong>Proximity Search</strong></td>
+            <td>Finds words appearing close to each other.</td>
+          </tr>
+          <tr>
+            <td><strong>Weighted Ranking</strong></td>
+            <td>Ranks search results based on relevance.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="section">
+      <h2> Basic Full-Text Search</h2>
+      <h3>Creating a Full-Text Index</h3>
+      <pre><code>CREATE FULLTEXT INDEX ON Products(ProductDescription);</code></pre>  
+      <h3>Single Word Search</h3>
+      <pre><code>SELECT * FROM Products WHERE CONTAINS(ProductDescription, 'laptop');</code></pre>  
+      <h3>Multiple Word Search</h3>
+      <pre><code>SELECT * FROM Products WHERE CONTAINS(ProductDescription, 'laptop OR tablet');</code></pre>
+    </div>
+  
+    <div class="section">
+      <h2>Phrase Search</h2>
+      <h3>Searching for an Exact Phrase</h3>
+      <pre><code>SELECT * FROM Products WHERE CONTAINS(ProductDescription, '"gaming laptop"');</code></pre>
+    </div>
+  
+    <div class="section">
+      <h2>Boolean Search</h2>
+      <h3>Using Boolean Operators</h3>
+      <pre><code>SELECT * FROM Products WHERE CONTAINS(ProductDescription, '"gaming" AND "laptop"');</code></pre>
+      <pre><code>SELECT * FROM Products WHERE CONTAINS(ProductDescription, '"laptop" AND NOT "used"');</code></pre>
+    </div>
+  
+    <div class="section">
+      <h2>Proximity Search</h2>
+      <h3>Finding Words Near Each Other</h3>
+      <pre><code>SELECT * FROM Products WHERE CONTAINS(ProductDescription, 'NEAR((gaming, laptop), 3)');</code></pre>
+    </div>
+  
+    <div class="section">
+      <h2> Weighted Ranking</h2>
+      <h3>Ranking Search Results</h3>
+      <pre><code>SELECT ProductName,  
+         RANK() OVER (ORDER BY KEY_TBL.RANK DESC) AS Rank  
+  FROM Products  
+  JOIN CONTAINSTABLE(Products, ProductDescription, 'laptop') AS KEY_TBL  
+  ON Products.ProductID = KEY_TBL.[KEY];</code></pre>
+    </div>
+  
+    <div class="section">
+      <h2>Comparison: Full-Text Search vs LIKE</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Full-Text Search</th>
+            <th>LIKE Operator</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Performance</strong></td>
+            <td>✅ Faster</td>
+            <td>❌ Slower</td>
+          </tr>
+          <tr>
+            <td><strong>Ranking Support</strong></td>
+            <td>✅ Yes</td>
+            <td>❌ No</td>
+          </tr>
+          <tr>
+            <td><strong>Boolean Search</strong></td>
+            <td>✅ Yes</td>
+            <td>❌ No</td>
+          </tr>
+          <tr>
+            <td><strong>Phrase Search</strong></td>
+            <td>✅ Yes</td>
+            <td>✅ Yes</td>
+          </tr>
+          <tr>
+            <td><strong>Proximity Search</strong></td>
+            <td>✅ Yes</td>
+            <td>❌ No</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="section">
+      <h2>Conclusion</h2>
+      <ul>
+        <li>Full-Text Search allows advanced text-based searching in SQL.</li>
+        <li>Supports phrase search, boolean search, and ranking.</li>
+        <li>Faster and more powerful than using <strong>LIKE</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>

@@ -1,0 +1,48 @@
+<div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>
+<div class="container-card">
+    <h2>Subqueries in SQL</h2>
+    <div class="section">
+    
+    <h3>What is a Subquery?</h3>
+    <p>A subquery is a query nested inside another query to retrieve data based on a condition.</p>
+
+    <h3>Types of Subqueries:</h3>
+    <ul>
+        <li><strong>Single-row subqueries</strong> – Return one value.</li>
+        <li><strong>Multi-row subqueries</strong> – Return multiple values.</li>
+        <li><strong>Correlated subqueries</strong> – Execute once for each row.</li>
+    </ul>
+    </div>
+    <div class="section">
+    <h3>Example (Finding Customers with High Balance Accounts)</h3>
+ 
+        <code>SELECT FirstName, LastName FROM Customers WHERE CustomerID IN (SELECT CustomerID FROM Accounts WHERE Balance > 100000 );</code>
+    
+    <p>🔹 <strong>How it works:</strong> The subquery finds CustomerIDs where balance &gt; 100,000, and the main query retrieves customer details.</p>
+</div>   
+</div>
+<div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>

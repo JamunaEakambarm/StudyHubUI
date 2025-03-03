@@ -1,0 +1,9 @@
+.course-form-container {
+    max-width: 500px;
+    margin: auto;
+    padding: 16px;
+  }
+  .full-width {
+    width: 100%;
+    margin-bottom: 16px;
+  }

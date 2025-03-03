@@ -1,0 +1,126 @@
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>
+
+<div class="container">
+    <h1>SQL Transactions</h1>
+    
+    <div class="section">
+      <h2>What is a Transaction?</h2>
+      <p class="para-start">
+        A <strong>transaction</strong> in SQL refers to a sequence of operations executed as a single unit. These operations are typically database commands such as INSERT, UPDATE, DELETE, or SELECT. A transaction ensures that all operations within it are executed completely or not at all.
+      </p>
+      
+      <p class="para-start">
+        A transaction begins with the `BEGIN TRANSACTION` statement and ends with either `COMMIT` or `ROLLBACK`. If all operations within the transaction succeed, `COMMIT` is used to save the changes. If any operation fails, `ROLLBACK` is used to undo the transaction.
+      </p>
+    </div>
+    
+    <div class="section">
+      <h2>ACID Properties</h2>
+      <p class="para-start">
+        Transactions in SQL are governed by the <strong>ACID properties</strong>:
+      </p>
+      <ul>
+        <li><strong>Atomicity</strong>: Ensures that all operations within a transaction are completed. If one operation fails, the entire transaction is rolled back.</li>
+        <li><strong>Consistency</strong>: Ensures that a transaction only brings the database from one valid state to another.</li>
+        <li><strong>Isolation</strong>: Ensures that the changes made in one transaction are invisible to other transactions until the transaction is committed.</li>
+        <li><strong>Durability</strong>: Ensures that once a transaction is committed, the changes are permanent, even in case of a system crash.</li>
+      </ul>
+    </div>
+  
+    <div class="section">
+      <h2>Example: SQL Transaction</h2>
+      <p class="para-start">
+        Here's an example of a SQL transaction for transferring money between two bank accounts:
+      </p>
+      <div class="section">
+       <pre> <code>
+  -- Start the transaction
+  BEGIN TRANSACTION;
+  
+  -- Deduct money from the sender's account
+  UPDATE Accounts
+  SET Balance = Balance - 500
+  WHERE AccountID = 101
+  AND Balance >= 500;
+  
+  -- Check if the sender has enough balance
+  IF &#64;&#64;ROWCOUNT = 0
+  BEGIN
+      PRINT 'Insufficient funds';
+      ROLLBACK TRANSACTION; -- Rollback if insufficient balance
+      RETURN;
+  END;
+  
+  -- Add money to the receiver's account
+  UPDATE Accounts
+  SET Balance = Balance + 500
+  WHERE AccountID = 102;
+  
+  -- Commit the transaction if both operations succeed
+  COMMIT TRANSACTION;
+</code></pre>
+      </div>
+      <p class="para-start">
+        This example demonstrates a simple fund transfer between two accounts, ensuring that the transaction either completes successfully (commit) or is undone (rollback) if there is an issue (like insufficient funds).
+      </p>
+    </div>
+  
+    <div class="section">
+      <h2>Transaction Control Statements</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Statement</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>BEGIN TRANSACTION</code></td>
+            <td>Marks the beginning of a transaction.</td>
+          </tr>
+          <tr>
+            <td><code>COMMIT</code></td>
+            <td>Saves all changes made during the transaction.</td>
+          </tr>
+          <tr>
+            <td><code>ROLLBACK</code></td>
+            <td>Reverts the database to its previous state before the transaction started.</td>
+          </tr>
+          <tr>
+            <td><code>SAVEPOINT</code></td>
+            <td>Sets a point in the transaction to which you can later roll back.</td>
+          </tr>
+          <tr>
+            <td><code>SET TRANSACTION</code></td>
+            <td>Allows you to specify properties like the isolation level of the transaction.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>  

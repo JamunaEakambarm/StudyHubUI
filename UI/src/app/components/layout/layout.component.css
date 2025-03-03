@@ -1,0 +1,31 @@
+
+.app-container {
+    height: 100vh;
+    display: flex;
+  }
+  
+ 
+  .layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .main-content {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+  }
+  .content {
+    flex-grow: 1;
+    /*padding: 1rem;*/ /* Reduce padding to maximize space */
+    width: 100%; /* Ensures it stretches fully */  
+    overflow-y: auto; /* Allows content to scroll if it's too long */  
+    
+}
+
+  .right-space {
+    width: 300px; /* Adjust the width as needed */
+    background-color: #f0f0f0; /* Optional: Set a background color */
+}

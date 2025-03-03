@@ -1,0 +1,76 @@
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>
+<div class="crud-container">
+    <div class="crud-header">
+        <h1>SQL CRUD Operations</h1>
+        <p><strong>CRUD</strong> stands for <strong>Create</strong>, <strong>Read</strong>, <strong>Update</strong>, and <strong>Delete</strong> — the four fundamental operations used to 
+        interact with data in relational databases.</p>
+        <p>While <strong>"CREATE TABLE"</strong> is essential to define the structure of your database, it's not part of the CRUD operations. CRUD specifically refers to the manipulation of data <strong>within</strong> an existing table. It focuses on <strong>inserting data</strong> (<strong>Create</strong>), <strong>retrieving data</strong> (<strong>Read</strong>), <strong>modifying data</strong> (<strong>Update</strong>), and <strong>removing data</strong> (<strong>Delete</strong>). These actions are performed <strong>after</strong> the table structure is already established.</p>
+        <p class="motivation-text"><strong>"Effortlessly manage your data, and watch your systems come to life!"</strong></p>
+      </div>
+      
+  
+    <div class="crud-actions">
+      <button class="btn" id="btn-create">Create</button>
+      <button class="btn" id="btn-read">Read</button>
+      <button class="btn" id="btn-update">Update</button>
+      <button class="btn" id="btn-delete">Delete</button>
+    </div>
+  
+    <div class="crud-info">
+      <h2>Data Records</h2>
+      <p><strong>CREATE:</strong> Insert new records into the database, e.g.:</p>
+      <pre><code>INSERT INTO Customers (CustomerID, FirstName, LastName, Email, DateOfBirth)
+  VALUES (1, 'Alice', 'Johnson', 'alice&#64;email.com', '1990-05-10');</code></pre>
+  
+      <p><strong>READ:</strong> Fetch data from the database, e.g.:</p>
+      <pre><code>SELECT * FROM Customers WHERE Email = 'alice&#64;email.com';</code></pre>
+  
+      <p><strong>UPDATE:</strong> Modify existing records, e.g.:</p>
+      <pre><code>UPDATE Customers SET Email = 'alice.new&#64;email.com' WHERE CustomerID = 1;</code></pre>
+  
+      <p><strong>DELETE:</strong> Remove records from the database, e.g.:</p>
+      <pre><code>DELETE FROM Customers WHERE CustomerID = 1;</code></pre>
+    </div>
+    <div class="crud-container">
+      <div class="crud-header">
+        <h1 >Summary</h1>
+      </div>
+         <p>CRUD Operations:</p>
+    <ul>
+    <li>Create: Insert data into a table.</li>
+    <li>Read: Retrieve data from a table (using SELECT).</li>   
+    <li>Create: Insert data into a table.  </li> 
+    <li> Retrieve data from a table (using SELECT).</li>
+    <li>Update: Modify existing data in a table.</li>
+    <li>Delete: Remove data from a table.</li>
+    <li>Note: Create Table is outside of the CRUD operations since it’s used 
+      to define the structure of your database before the actual data manipulation begins</li>    
+    </ul>
+    
+    </div>
+  </div>
+  <div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>
