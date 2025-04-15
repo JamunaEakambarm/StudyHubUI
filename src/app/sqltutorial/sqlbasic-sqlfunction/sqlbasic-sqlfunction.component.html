@@ -1,0 +1,65 @@
+<div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>
+
+<div class="container-card">
+    <h1>SQL Functions</h1>
+    <h1>What are SQL Functions?</h1>
+    <p>Functions perform calculations on data and return results.</p>
+        <mat-card-content>
+
+            <div class="section">
+                <h2>Types of Functions</h2>
+                <ul>
+                    <li>Aggregate Functions (SUM, AVG, COUNT, MAX, MIN)</li>
+                    <li>String Functions (UPPER, LOWER, LENGTH)</li>
+                    <li>Date Functions (NOW, YEAR, MONTH)</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2> Aggregate Functions</h2>
+                <p>Example (Calculating Total Deposits in the Bank):</p>
+                <code>SELECT SUM(Balance) AS TotalDeposits FROM Accounts;</code>
+            </div>
+
+            <div class="section">
+                <h2> String Functions</h2>
+                <p>Example (Converting Customer Name to Uppercase):</p>
+                <code class="code">SELECT UPPER(FirstName) FROM Customers;</code>               
+            </div>
+
+            <div class="section">
+                <h2> Date Functions</h2>
+                <p>Example (Calculating Customer Age from Date of Birth):</p>
+                <code class="code">
+                    
+                        SELECT FirstName, YEAR(CURDATE()) - YEAR(DateOfBirth) AS Age FROM Customers; </code>
+                
+            </div>
+        </mat-card-content>
+    
+</div>
+<div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>

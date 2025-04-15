@@ -1,0 +1,69 @@
+<div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>
+  
+<div class="container-card">
+  <div class="section">
+    <h1>🌟 Introduction to <span class="highlight">SQL</span> 🌟</h1>
+    <p class="lead">SQL (Structured Query Language) is the standard language for managing relational databases.</p>
+    
+    <h2>🚀 What is SQL?</h2>
+    <p>SQL allows users to:</p>
+    <ul class="list-group">
+        <li class="list-group-item">✅ Store and manage data efficiently</li>
+        <li class="list-group-item">✅ Retrieve and filter data using queries</li>
+        <li class="list-group-item">✅ Update and delete records</li>
+        <li class="list-group-item">✅ Secure and control database access</li>
+    </ul>
+    <code>SELECT name, age FROM students WHERE age > 18;</code>
+  </div>
+  <div class="section">
+    <h2>🎯 Uses & Importance of SQL</h2>
+    <h3>✨ Key Uses:</h3>
+    <ul>
+        <li>📊 Data Retrieval: Fetching data for applications</li>
+        <li>🛠 Data Manipulation: Insert, update, delete operations</li>
+        <li>🔒 Security: User roles and permissions</li>
+        <li>📈 Business Intelligence: Analytics and reporting</li>
+    </ul>
+  </div>
+  <div class="section">
+    <h3>💡 Why SQL Matters?</h3>
+    <ul class="list-group">
+        <li class="list-group-item">🌍 Universal – Used in most systems</li>
+        <li class="list-group-item">📈 Scalable – Handles vast data efficiently</li>
+        <li class="list-group-item">📑 Structured – Clear syntax and rules</li>
+    </ul>
+  </div>
+  <div class="section">
+    <h2 class="text-center text-success">🌟 Conclusion</h2>
+    <ul class="list-group">
+        <li class="list-group-item">✅ SQL is essential for data management.</li>
+        <li class="list-group-item">✅ It enables querying, updating, and securing data.</li>
+        <li class="list-group-item">✅ Choosing SQL vs. NoSQL depends on use cases.</li>
+    </ul>
+  </div>
+</div>
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>

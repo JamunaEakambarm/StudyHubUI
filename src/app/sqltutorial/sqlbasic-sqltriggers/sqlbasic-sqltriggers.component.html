@@ -1,0 +1,205 @@
+<div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>
+<div class="container">
+    <h1>SQL Triggers</h1>
+
+    <!-- What is Trigger Section -->
+    <div class="container-card">
+        <h2>What is a Trigger in SQL?</h2>
+        <p class="para-start">
+            A <strong>Trigger</strong> in SQL is a special kind of stored procedure that automatically executes or triggers when certain events occur in the database. These events are usually associated with <strong>insert</strong>, <strong>update</strong>, or <strong>delete</strong> operations on a table or view. Triggers are used to ensure data integrity, enforce business rules, and automate certain actions in the database.
+        </p>
+        <p class="para-start">
+            Triggers are automatically invoked (fired) by the database system whenever the defined event takes place. For example, a trigger could automatically update a timestamp column when a record is modified, or it might enforce a business rule by rejecting certain types of changes.
+        </p>
+    </div>
+
+    <!-- Types of Triggers -->
+    <div class="container-card section">
+        <h2>Types of Triggers in SQL</h2>
+        <p class="para-start">
+            There are different types of triggers based on their timing and the events they respond to. The types of triggers are as follows:
+        </p>
+        <ul>
+            <li><strong>BEFORE Trigger</strong></li>
+            <li><strong>AFTER Trigger</strong></li>
+            <li><strong>INSTEAD OF Trigger</strong></li>
+        </ul>
+        <p class="para-start">
+            Let’s explore each type in detail with examples and use cases:
+        </p>
+    </div>
+
+    <!-- 1. BEFORE Trigger -->
+    <div class="container-card section">
+        <h2>1. BEFORE Trigger</h2>
+        <p class="para-start">
+            A <strong>BEFORE Trigger</strong> is executed <strong>before</strong> an insert, update, or delete operation is performed on a table. This type of trigger is useful when you need to validate or modify data before it is inserted or updated in the database.
+        </p>
+        <p class="para-start">
+            <strong>Use Case:</strong><br>
+            <i>Data Validation:</i> Ensure that the data being inserted into a table adheres to certain constraints or business rules.
+        </p>
+        <p class="para-start">
+            <strong>Example:</strong>
+        </p>
+        <div class="sql-box">
+            CREATE TRIGGER validate_age_before_insert<br>
+            BEFORE INSERT ON Users<br>
+            FOR EACH ROW<br>
+            BEGIN<br>
+                IF NEW.age < 18 THEN<br>
+                    SIGNAL SQLSTATE '45000'<br>
+                    SET MESSAGE_TEXT = 'Age must be 18 or older';<br>
+                END IF;<br>
+            END;
+        </div>
+        <p class="para-start">
+            🔹 <strong>Explanation:</strong> This `BEFORE INSERT` trigger checks if the age of the user is less than 18. If so, it raises an error, preventing the insertion of the row.
+        </p>
+    </div>
+
+    <!-- 2. AFTER Trigger -->
+    <div class="container-card section">
+        <h2>2. AFTER Trigger</h2>
+        <p class="para-start">
+            An <strong>AFTER Trigger</strong> is executed <strong>after</strong> an insert, update, or delete operation has been completed on a table. This type of trigger is useful when you want to perform actions after the database state has been changed.
+        </p>
+        <p class="para-start">
+            <strong>Use Case:</strong><br>
+            <i>Auditing:</i> Keep a log of changes made to important data, such as tracking when records are added, updated, or deleted.
+        </p>
+        <p class="para-start">
+            <strong>Example:</strong>
+        </p>
+        <div class="sql-box">
+            CREATE TRIGGER log_user_update<br>
+            AFTER UPDATE ON Users<br>
+            FOR EACH ROW<br>
+            BEGIN<br>
+                INSERT INTO UserLogs (UserID, ChangeType, ChangeDate)<br>
+                VALUES (NEW.UserID, 'UPDATE', NOW());<br>
+            END;
+        </div>
+        <p class="para-start">
+            🔹 <strong>Explanation:</strong> This `AFTER UPDATE` trigger inserts a record into the `UserLogs` table whenever a user’s data is updated. It logs the user ID, change type (update), and the current timestamp.
+        </p>
+    </div>
+
+    <!-- 3. INSTEAD OF Trigger -->
+    <div class="container-card section">
+        <h2>3. INSTEAD OF Trigger</h2>
+        <p class="para-start">
+            An <strong>INSTEAD OF Trigger</strong> is executed <strong>instead of</strong> the original operation (insert, update, delete) on a table. This trigger is useful when you want to substitute the default behavior with custom behavior. Often used with views, it allows you to modify the behavior of inserts, updates, or deletes on views.
+        </p>
+        <p class="para-start">
+            <strong>Use Case:</strong><br>
+            <i>Handling Views:</i> Modify data through views by using the `INSTEAD OF` trigger, which makes views updateable even when they are not inherently updateable.
+        </p>
+        <p class="para-start">
+            <strong>Example:</strong>
+        </p>
+        <code>
+            CREATE TRIGGER update_user_instead_of<br>
+            INSTEAD OF UPDATE ON UsersView<br>
+            FOR EACH ROW<br>
+            BEGIN<br>
+                UPDATE Users<br>
+                SET FirstName = NEW.FirstName, LastName = NEW.LastName<br>
+                WHERE UserID = OLD.UserID;<br>
+            END;
+        </code>
+        <p class="para-start">
+            🔹 <strong>Explanation:</strong> In this `INSTEAD OF UPDATE` trigger, instead of performing the default update on the view (`UsersView`), the trigger updates the corresponding record in the underlying `Users` table directly.
+        </p>
+    </div>
+
+    <!-- Summary Table -->
+    <div class="container-card section">
+        <h2>Summary Table of Trigger Types</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Trigger Type</th>
+                    <th>When it Executes</th>
+                    <th>Use Case Example</th>
+                    <th>Example SQL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>BEFORE Trigger</td>
+                    <td>Before an insert, update, or delete</td>
+                    <td>Validate data or modify data before it is inserted/updated/deleted</td>
+                    <td><code>CREATE TRIGGER validate_age_before_insert BEFORE INSERT ON Users ...</code></td>
+                </tr>
+                <tr>
+                    <td>AFTER Trigger</td>
+                    <td>After an insert, update, or delete</td>
+                    <td>Perform actions (e.g., logging, auditing) after a data modification</td>
+                    <td><code>CREATE TRIGGER log_user_update AFTER UPDATE ON Users ...</code></td>
+                </tr>
+                <tr>
+                    <td>INSTEAD OF Trigger</td>
+                    <td>Instead of an insert, update, or delete</td>
+                    <td>Override default behavior of DML operations (commonly used with views)</td>
+                    <td><code>CREATE TRIGGER update_user_instead_of INSTEAD OF UPDATE ON UsersView ...</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Use Cases of Triggers -->
+    <div class="section">
+        <h2>Use Cases of Triggers in SQL</h2>
+        <ul>
+            <li><strong>Enforcing Data Integrity:</strong> Triggers can automatically validate data and enforce business rules, reducing the likelihood of invalid data being inserted into a table.</li>
+            <li><strong>Audit and Logging:</strong> Triggers are commonly used to maintain logs for data modifications (insert, update, delete) to keep track of changes for auditing purposes.</li>
+            <li><strong>Automatic Updates:</strong> Triggers can automatically calculate and update fields when related data changes (e.g., automatically updating a timestamp field whenever a record is modified).</li>
+            <li><strong>Preventing Invalid Operations:</strong> Triggers can prevent certain operations from occurring based on custom business logic (e.g., rejecting an update to a field that should not be modified).</li>
+            <li><strong>Synchronized Data Across Tables:</strong> Triggers can help ensure that data remains synchronized across different tables. For instance, when a record in one table is updated, a corresponding update can be triggered in another table.</li>
+        </ul>
+    </div>
+
+    <!-- Key Considerations -->
+    <div class="section">
+        <h2>Key Considerations when Using Triggers</h2>
+        <ul>
+            <li><strong>Performance Impact:</strong> Triggers can sometimes affect performance, especially when they are complex or fire frequently.</li>
+            <li><strong>Debugging:</strong> Debugging triggers can be difficult since they operate automatically in the background. It's important to test them thoroughly to ensure that they work as expected.</li>
+            <li><strong>Nested Triggers:</strong> Some databases support nested triggers, where a trigger action can invoke another trigger. Care should be taken to avoid infinite loops in such cases.</li>
+        </ul>
+    </div>
+
+    <!-- Conclusion -->
+    <div class="section">
+        <h2>Conclusion</h2>
+        <p class="para-start">
+            Triggers in SQL are powerful tools that allow developers to automate and enforce important tasks on the database level. By using <strong>BEFORE</strong>, <strong>AFTER</strong>, and <strong>INSTEAD OF</strong> triggers, you can perform operations such as data validation, auditing, and updating related data across tables. Understanding when and how to use these triggers can help maintain data integrity and simplify business logic enforcement within the database.
+        </p>
+    </div>
+</div>
+<div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>

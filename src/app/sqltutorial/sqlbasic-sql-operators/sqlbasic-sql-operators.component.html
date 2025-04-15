@@ -1,0 +1,57 @@
+<div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>
+<div class="container-card">
+    <h1>SQL Operators</h1>
+    <p>Operators are used to perform operations on data stored in a database.</p>
+    
+    <div class="section">
+        <h2>Types of SQL Operators</h2>
+        <ul>
+            <li>Arithmetic Operators (+, -, *, /)</li>
+            <li>Comparison Operators (=, !=, <, >, <=, >=)</li>
+            <li>Logical Operators (AND, OR, NOT)</li>
+        </ul>
+    </div>
+    
+    <div class="section">
+        <h2>Arithmetic Operators</h2>
+        <p>Example (Calculating New Balance after Interest in Banking):</p>
+        <code >SELECT AccountID, Balance * 1.05 AS NewBalance FROM Accounts;</code>
+    </div>
+    
+    <div class="section">
+        <h2>Comparison Operators</h2>
+        <p>Example (Finding Customers with High Balance):</p>
+        <code >SELECT * FROM Accounts WHERE Balance > 50000;</code>
+    </div>
+    
+    <div class="section">
+        <h2>Logical Operators</h2>
+        <p>Example (Finding VIP Customers with High Balance and Savings Account):</p>
+        <code>SELECT * FROM Accounts WHERE Balance > 50000 AND AccountType = 'Savings';</code>
+    </div>
+</div>
+<div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>

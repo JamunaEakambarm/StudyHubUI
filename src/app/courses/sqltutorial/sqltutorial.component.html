@@ -1,0 +1,112 @@
+<div class="nav-buttons"><p>button</p>
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>
+  
+<div class="container">
+    <h1>📌 Introduction to SQL & Relational Databases</h1>
+    <p>SQL (Structured Query Language) is used to interact with **relational databases**. It helps store, retrieve, update, and delete data efficiently.</p>
+
+    <h2>📂 What is a Relational Database?</h2>
+    <p>A **relational database** stores data in **tables** and maintains **relationships** between them.</p>
+
+    <h2>🎓 Example: School Database</h2>
+    <h3>📄 Students Table</h3>
+    <table>
+        <tr>
+            <th>student_id</th>
+            <th>name</th>
+            <th>age</th>
+            <th>city</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Alice</td>
+            <td>14</td>
+            <td>New York</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Bob</td>
+            <td>15</td>
+            <td>Chicago</td>
+        </tr>
+    </table>
+
+    <h3>📄 Courses Table</h3>
+    <table>
+        <tr>
+            <th>course_id</th>
+            <th>course_name</th>
+            <th>teacher</th>
+        </tr>
+        <tr>
+            <td>101</td>
+            <td>Math</td>
+            <td>Mr. Smith</td>
+        </tr>
+        <tr>
+            <td>102</td>
+            <td>Science</td>
+            <td>Mrs. Brown</td>
+        </tr>
+    </table>
+
+    <h2>🛠️ Basic SQL Commands</h2>
+
+    <h3>🔹 Create a Table</h3>
+    <div class="sql-box">
+        CREATE TABLE Students ( <br>
+        &nbsp;&nbsp; student_id INT PRIMARY KEY, <br>
+        &nbsp;&nbsp; name VARCHAR(50), <br>
+        &nbsp;&nbsp; age INT, <br>
+        &nbsp;&nbsp; city VARCHAR(50) <br>
+        );
+    </div>
+
+    <h3>🔹 Insert Data</h3>
+    <div class="sql-box">
+        INSERT INTO Students (student_id, name, age, city) VALUES <br>
+        &nbsp;&nbsp; (1, 'Alice', 14, 'New York'), <br>
+        &nbsp;&nbsp; (2, 'Bob', 15, 'Chicago');
+    </div>
+
+    <h3>🔹 Retrieve Data</h3>
+    <div class="sql-box">
+        SELECT * FROM Students;
+    </div>
+
+    <h3>🔹 Update Data</h3>
+    <div class="sql-box">
+        UPDATE Students SET age = 16 WHERE student_id = 2;
+    </div>
+
+    <h3>🔹 Delete Data</h3>
+    <div class="sql-box">
+        DELETE FROM Students WHERE student_id = 1;
+    </div>
+
+    <p>🎯 <strong>Practice these SQL queries in a real database system like MySQL, PostgreSQL, or SQLite!</strong></p>
+</div>
+<div class="nav-buttons"><p>button</p>
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>

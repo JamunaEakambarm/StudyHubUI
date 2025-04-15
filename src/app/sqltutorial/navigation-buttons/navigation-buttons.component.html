@@ -1,0 +1,13 @@
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>

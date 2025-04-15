@@ -1,0 +1,158 @@
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>
+<div class="container-card">
+    <h1>SQL Performance Optimization</h1>
+    <div class="section">
+    <p class="para-start">SQL performance optimization is the process of improving the efficiency of queries and database
+     operations to ensure faster response times, reduced resource consumption, and better scalability. Optimizing SQL queries is essential for handling large datasets
+     and maintaining high performance in database-driven applications.</p>
+    </div>
+</div>
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>Types of Performance Optimization in SQL</mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+  
+      <mat-accordion>
+        
+        <!-- Indexing Optimization -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Indexing Optimization </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>Indexes speed up data retrieval by reducing full table scans.</p>
+          <pre><code>CREATE INDEX idx_email ON Users(email);</code></pre>
+        </mat-expansion-panel>
+  
+        <!-- Query Optimization -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Query Optimization </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>Optimize queries by selecting only necessary columns.</p>
+          <pre><code>
+  -- Inefficient Query
+  SELECT * FROM Employees WHERE department = 'IT';
+  
+  -- Optimized Query
+  SELECT id, name, salary FROM Employees WHERE department = 'IT';
+          </code></pre>
+        </mat-expansion-panel>
+  
+        <!-- Proper Use of Joins -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Proper Use of Joins </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>Use indexed columns and appropriate join types.</p>
+          <pre><code>
+  SELECT e.name, d.department_name
+  FROM Employees e
+  JOIN Departments d ON e.department_id = d.id;
+          </code></pre>
+        </mat-expansion-panel>
+  
+        <!-- Using EXPLAIN or Execution Plans -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Using EXPLAIN or Execution Plans </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>Analyze query execution plans to identify bottlenecks.</p>
+          <pre><code>EXPLAIN ANALYZE SELECT * FROM Orders WHERE customer_id = 123;</code></pre>
+        </mat-expansion-panel>
+  
+        <!-- Partitioning Large Tables -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Partitioning Large Tables </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>Dividing tables into partitions improves query performance.</p>
+          <pre><code>
+  CREATE TABLE Orders (
+      order_id INT NOT NULL,
+      order_date DATE NOT NULL,
+      customer_id INT NOT NULL
+  ) PARTITION BY RANGE (YEAR(order_date)) (
+      PARTITION p2023 VALUES LESS THAN (2024),
+      PARTITION p2024 VALUES LESS THAN (2025)
+  );
+          </code></pre>
+        </mat-expansion-panel>
+  
+        <!-- Caching Frequent Queries -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Caching Frequent Queries </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>Materialized views store frequently used query results.</p>
+          <pre><code>
+  CREATE MATERIALIZED VIEW sales_summary AS
+  SELECT product_id, SUM(quantity) AS total_sold
+  FROM Sales
+  GROUP BY product_id;
+          </code></pre>
+        </mat-expansion-panel>
+  
+        <!-- Avoiding Unnecessary Subqueries -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Avoiding Unnecessary Subqueries </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>Replace subqueries with joins for better efficiency.</p>
+          <pre><code>
+  -- Inefficient Query
+  SELECT name FROM Employees 
+  WHERE department_id = (SELECT id FROM Departments WHERE name = 'HR');
+  
+  -- Optimized Query
+  SELECT e.name FROM Employees e
+  JOIN Departments d ON e.department_id = d.id
+  WHERE d.name = 'HR';
+          </code></pre>
+        </mat-expansion-panel>
+  
+        <!-- Denormalization for Read Optimization -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Denormalization for Read Optimization </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>Denormalization improves read performance by storing redundant data.</p>
+          <pre><code>
+  ALTER TABLE Orders ADD COLUMN customer_name VARCHAR(255);
+  
+  UPDATE Orders o
+  JOIN Customers c ON o.customer_id = c.id
+  SET o.customer_name = c.name;
+          </code></pre>
+        </mat-expansion-panel>
+  
+      </mat-accordion>
+  
+    </mat-card-content>
+  </mat-card>
+  <div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>

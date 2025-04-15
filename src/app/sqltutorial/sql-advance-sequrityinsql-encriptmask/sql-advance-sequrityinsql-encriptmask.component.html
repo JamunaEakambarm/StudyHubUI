@@ -1,0 +1,152 @@
+
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>
+<div class="container-card">
+    <h1>Security in SQL: Encryption & Masking</h1>
+  
+    <div class="section">
+      <h2>1. Encryption in SQL</h2>
+      <p class="para-start">
+        Encryption refers to the process of converting data into a format that is unreadable without the decryption key. It ensures that even if unauthorized individuals access the data, they cannot interpret it without the key. Encryption can be applied to data at rest (stored data) and data in transit (data being transmitted).
+      </p>
+  
+      <div class="section">
+        <h3>Types of Encryption in SQL:</h3>
+        <ul>
+          <li><strong>Transparent Data Encryption (TDE):</strong> Encrypts the entire database at the storage level, including backups, logs, and data files.</li>
+          <li><strong>Column-Level Encryption:</strong> Allows encryption on specific columns of a table rather than encrypting the whole database.</li>
+          <li><strong>Symmetric Encryption:</strong> Uses the same key to encrypt and decrypt the data. It is fast but requires secure key management.</li>
+          <li><strong>Asymmetric Encryption:</strong> Uses a pair of keys – a public key for encryption and a private key for decryption. It is slower but more secure than symmetric encryption.</li>
+        </ul>
+      </div>
+  
+      <div class="section">
+        <h3>Examples:</h3>
+        <h4>1. Transparent Data Encryption (TDE):</h4>
+        <code>
+  CREATE DATABASE MyEncryptedDB
+  ON PRIMARY 
+  (NAME = 'MyEncryptedDB_Data', FILENAME = 'C:\Data\MyEncryptedDB.mdf')
+  LOG ON
+  (NAME = 'MyEncryptedDB_Log', FILENAME = 'C:\Data\MyEncryptedDB.ldf')
+  ENCRYPTION = ON;
+        </code>
+  
+        <h4>2. Column-Level Encryption:</h4>
+        <code>
+  CREATE TABLE Employees (
+      EmployeeID INT,
+      Name VARCHAR(100),
+      Salary VARBINARY(256)
+  );
+  
+  INSERT INTO Employees (EmployeeID, Name, Salary)
+  VALUES (1, 'John Doe', AES_ENCRYPT('50000', 'encryption_key'));
+        </code>
+  
+        <h4>3. Symmetric Encryption (SQL Server):</h4>
+        <code>
+  CREATE SYMMETRIC KEY EmployeeKey 
+  WITH ALGORITHM = AES_256 
+  ENCRYPTION BY PASSWORD = 'StrongPassword';
+  
+  OPEN SYMMETRIC KEY EmployeeKey DECRYPTION BY PASSWORD = 'StrongPassword';
+        </code>
+  
+        <h4>4. Asymmetric Encryption (SQL Server):</h4>
+        <code>
+  CREATE CERTIFICATE MyCert
+  WITH SUBJECT = 'My Cert for Encryption';
+  
+  CREATE SYMMETRIC KEY EmployeeKey 
+  WITH ALGORITHM = AES_256 
+  ENCRYPTION BY CERTIFICATE MyCert;
+        </code>
+      </div>
+    </div>
+  
+    <div class="section">
+      <h2>2. Data Masking in SQL</h2>
+      <p class="para-start">
+        Data masking is the process of hiding sensitive data by replacing it with non-sensitive but realistic-looking data. This method is often used in non-production environments where real data is not required.
+      </p>
+  
+      <div class="section">
+        <h3>Types of Data Masking in SQL:</h3>
+        <ul>
+          <li><strong>Static Data Masking:</strong> The actual data is permanently replaced with pseudo-data in the storage.</li>
+          <li><strong>Dynamic Data Masking:</strong> Data is masked dynamically when queried by unauthorized users, but the original data is still stored in the database.</li>
+          <li><strong>Deterministic Masking:</strong> A fixed pattern is used for masking, ensuring that the same input always produces the same masked output.</li>
+        </ul>
+      </div>
+  
+      <div class="section">
+        <h3>Examples:</h3>
+        <h4>1. Static Data Masking (MySQL):</h4>
+        <code>
+  UPDATE Employees
+  SET Name = 'XXX XXX', 
+      Email = 'xxx&#64;xxx.com'
+  WHERE EmployeeID = 1;
+        </code>
+  
+        <h4>2. Dynamic Data Masking (SQL Server):</h4>
+        <code>
+  CREATE TABLE Employees (
+      EmployeeID INT,
+      Name VARCHAR(100),
+      Email VARCHAR(100),
+      Salary DECIMAL(10, 2)
+  );
+  
+  ALTER TABLE Employees
+  ADD MASKED WITH (FUNCTION = 'default()') FOR Salary;
+  
+  SELECT * FROM Employees;
+        </code>
+  
+        <h4>3. Deterministic Masking (SQL Server):</h4>
+        <code>
+  ALTER TABLE Employees
+  ADD MASKED WITH (FUNCTION = 'email()') FOR Email;
+        </code>
+      </div>
+    </div>
+  
+    <div class="section">
+      <h2>Summary</h2>
+      <p class="para-start">
+        In SQL, encryption and data masking provide robust methods to protect sensitive data. Encryption secures data by converting it into an unreadable format, ensuring that unauthorized users cannot access or interpret it. Data masking, on the other hand, hides sensitive data with realistic-looking data, which is particularly useful for non-production environments.
+      </p>
+      <h3>Benefits of Encryption & Data Masking:</h3>
+      <ul>
+        <li>Protect sensitive data from unauthorized access.</li>
+        <li>Ensure compliance with industry regulations like GDPR, HIPAA, etc.</li>
+        <li>Enable secure testing and development by using masked data instead of real data.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>  

@@ -1,0 +1,101 @@
+<div class="employee-container">
+  <h2>Employee Management</h2>
+
+  <!-- Employee Form Section -->
+  <div class="form-box">
+    <form [formGroup]="employeeForm">
+      <table class="employee-table">
+        <tr>
+          <td><label for="lname">Name :</label></td>
+          <td>
+            <input type="text" formControlName="Name" placeholder="Name" class="form-input" />
+            <div class="error" *ngIf="name?.invalid && name?.touched">Name is required</div>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="lposition">Position :</label></td>
+          <td>
+            <input type="text" formControlName="Position" placeholder="Position" class="form-input" />
+            <div class="error" *ngIf="position?.invalid && position?.touched">Position is required</div>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="lsalary">Salary :</label></td>
+          <td>
+            <input type="number" formControlName="Salary" placeholder="Salary" class="form-input" />
+            <div class="error" *ngIf="salary?.invalid && salary?.touched">Salary must be greater than 0</div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <button type="button" (click)="addOrUpdateEmployee()" class="action-btn">{{ isEditing() ? "Update" : "Add" }} Employee</button>
+            <button type="button" (click)="resetForm()" class="reset-btn">Reset</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+
+  <!-- 🔍 Search Input -->
+<!-- 🔍 Stylish Search Box -->
+<div class="search-container">
+  <input 
+    type="text" 
+    [formControl]="searchControl" 
+    placeholder="🔍 Search employees..." 
+    class="search-box" 
+    (input)="onSearch()" 
+  />
+  <button *ngIf="searchControl.value" (click)="clearSearch()" class="clear-btn">✖</button>
+</div>
+
+
+
+  <!-- <input type="text" [formControl]="searchControl" placeholder="Search by Name, Position, or Salary..." class="search-box" (input)="onSearch()" /> -->
+
+  <!-- Employee Table Section -->
+  <table class="employee-table">
+    <thead>
+      <tr>
+        <th (click)="sortTable('name')">
+          Name
+          <span *ngIf="sortColumn === 'name'">
+            {{ sortDirection === 'asc' ? '🔼' : '🔽' }}
+          </span>
+        </th>
+        <th (click)="sortTable('position')">
+          Position
+          <span *ngIf="sortColumn === 'position'">
+            {{ sortDirection === 'asc' ? '🔼' : '🔽' }}
+          </span>
+        </th>
+        <th (click)="sortTable('salary')">
+          Salary
+          <span *ngIf="sortColumn === 'salary'">
+            {{ sortDirection === 'asc' ? '🔼' : '🔽' }}
+          </span>
+        </th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of paginatedEmployees">
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.position }}</td>
+        <td>{{ employee.salary | currency }}</td>
+        <td>
+          <button (click)="editEmployee(employee)" class="edit-btn">Edit</button>
+          <button (click)="deleteEmployee(employee.id)" class="delete-btn">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+
+  <!-- Pagination Buttons -->
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage >= totalPages">Next</button>
+  </div>
+</div>

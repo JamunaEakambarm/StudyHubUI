@@ -1,0 +1,29 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.logo-container {
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 150px;
+  height: auto;
+}
+
+.menu-bar {
+  margin-bottom: 20px;
+}
+
+.user-info {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.user-email {
+  margin-right: 10px;
+}

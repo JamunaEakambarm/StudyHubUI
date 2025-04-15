@@ -1,0 +1,165 @@
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>
+<div class="container-card">
+    <h1>SQL Indexes</h1>
+  
+    <div class="section">
+      <h2>What is an Index in SQL?</h2>
+      <p>
+        An <strong>Index</strong> in SQL is a database object that improves the speed of data retrieval operations.
+        It acts like an index in a book, allowing faster searches without scanning the entire table.
+      </p>
+    </div>
+  
+    <div class="section">
+      <h2>Types of Indexes</h2>
+  
+      <div class="section">
+        <h3>1. Clustered Index</h3>
+        <p>
+          A clustered index determines the <strong>physical order</strong> of data in a table. 
+          Each table can have <strong>only one</strong> clustered index.
+        </p>
+        <pre><code>CREATE CLUSTERED INDEX IX_Employee_ID ON Employees(EmployeeID);</code></pre>
+      </div>
+  
+      <div class="section">
+        <h3>2. Non-Clustered Index</h3>
+        <p>
+          A non-clustered index creates a <strong>separate structure</strong> from the table, storing pointers to data. 
+          A table can have <strong>multiple</strong> non-clustered indexes.
+        </p>
+        <pre><code>CREATE NONCLUSTERED INDEX IX_Employee_Name ON Employees(LastName);</code></pre>
+      </div>
+  
+      <div class="section">
+        <h3>3. Unique Index</h3>
+        <p>
+          Ensures that indexed column(s) contain <strong>distinct values</strong>, preventing duplicates.
+        </p>
+        <pre><code>CREATE UNIQUE INDEX IX_Unique_Email ON Employees(Email);</code></pre>
+      </div>
+  
+      <div class="section">
+        <h3>4. Full-Text Index</h3>
+        <p>
+          Used for searching large text fields efficiently.
+        </p>
+        <code>CREATE FULLTEXT INDEX ON Articles(Title, Content) KEY INDEX PK_ArticleID;</code>
+      </div>
+  
+      <div class="section">
+        <h3>5. Composite Index</h3>
+        <p>
+          Created on <strong>multiple columns</strong> to optimize multi-condition queries.
+        </p>
+        <pre><code>CREATE INDEX IX_Employee_Department ON Employees(DepartmentID, LastName);</code></pre>
+      </div>
+  
+      <div class="section">
+        <h3>6. Filtered Index</h3>
+        <p>
+          Created for a specific subset of rows, reducing storage overhead.
+        </p>
+        <pre><code>CREATE INDEX IX_Active_Employees ON Employees(EmployeeID) WHERE Status = 'Active';</code></pre>
+      </div>
+  
+      <div class="section">
+        <h3>7. Spatial Index</h3>
+        <p>
+          Used for efficient retrieval of spatial (geographical) data.
+        </p>
+        <pre><code>CREATE SPATIAL INDEX IX_Location ON Properties(Location);</code></pre>
+      </div>
+    </div>
+  
+    <div class="section">
+        <h2>Comparison of Index Types</h2>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Index Type</th>
+              <th>Sorting</th>
+              <th>Number Allowed</th>
+              <th>Best Use Case</th>
+              <th>Physical Data Order?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Clustered Index</td>
+              <td>Yes</td>
+              <td>1 per table</td>
+              <td>Primary key, sorting</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>Non-Clustered Index</td>
+              <td>No</td>
+              <td>Multiple</td>
+              <td>Searching specific values</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>Unique Index</td>
+              <td>No</td>
+              <td>Multiple</td>
+              <td>Ensuring unique values</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>Full-Text Index</td>
+              <td>No</td>
+              <td>Multiple</td>
+              <td>Text-based searching</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>Composite Index</td>
+              <td>Yes</td>
+              <td>Multiple</td>
+              <td>Multi-column filtering</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>Filtered Index</td>
+              <td>No</td>
+              <td>Multiple</td>
+              <td>Subset of data</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>Spatial Index</td>
+              <td>No</td>
+              <td>Multiple</td>
+              <td>Geographical data</td>
+              <td>No</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+</div>
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>

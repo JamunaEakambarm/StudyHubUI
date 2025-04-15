@@ -1,0 +1,30 @@
+<div class="home-container">
+  <!-- Logo -->
+  <div class="logo-container">
+    <img src="assets/images/logo.png" alt="Study Hub Logo" class="logo" />
+  </div>
+
+  <!-- Menu Bar -->
+  <div class="menu-bar">
+    <button mat-button [matMenuTriggerFor]="sqlMenu">SQL</button>
+    <mat-menu #sqlMenu="matMenu">
+      <button mat-menu-item routerLink="/SQL/basicsql">Introduction</button>
+      <button mat-menu-item routerLink="/SQL/basicsql-Sqldatatype">SQL Data Type</button>
+      <!-- Add other SQL submenu items here -->
+    </mat-menu>
+  </div>
+
+  <!-- User Info and Login/Logout Button -->
+  <div class="user-info">
+    @if (isLoggedIn()) {
+      <span class="user-email">{{ userEmail() }}</span>
+    }
+    @if (!isLoggedIn()) {
+      <button (click)="navigateToLogin()">Login</button>
+      <button (click)="navigateToRegister()">Register</button>
+    }
+    @if (isLoggedIn()) {
+      <button (click)="logout()">Logout</button>
+    }
+  </div>
+</div>

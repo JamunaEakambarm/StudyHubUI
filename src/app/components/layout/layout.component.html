@@ -1,0 +1,34 @@
+
+
+<div class="plane-container">
+  <img 
+    src="assets/images/aircraft.png" 
+    class="plane-image" 
+    alt="Flying plane animation"
+    aria-hidden="true"
+    [style.animation-duration]="planeSpeed"
+    [style.width]="planeSize"
+  >
+</div>
+<mat-sidenav-container class="app-container">
+  <!-- Sidebar -->
+  <mat-sidenav #sidenav mode="side"  position="start">
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
+  
+  
+  <!-- Main Content -->
+  <mat-sidenav-content>
+    <!-- Menu Bar -->
+     <app-menubar [sidenav]="sidenav"></app-menubar>
+    
+ <div class="content-area" [class.menu-open]="true"></div> 
+    <!-- Top Bar -->
+    <app-topbar [sidenav]="sidenav"></app-topbar>
+
+    <!-- Page Content -->
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

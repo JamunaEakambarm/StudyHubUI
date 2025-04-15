@@ -1,0 +1,33 @@
+<mat-accordion displayMode="flat" multi>
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-icon>code</mat-icon>
+        <span>SQL Basics</span>
+      </mat-expansion-panel-header>
+      <mat-nav-list>
+        <a mat-list-item routerLink="/sql/basicsql" routerLinkActive="active">
+          <mat-icon>chevron_right</mat-icon>
+          Introduction
+        </a>
+        <a mat-list-item routerLink="/sql/basicsql-Sqldatatype" routerLinkActive="active">
+          <mat-icon>chevron_right</mat-icon>
+          SQL Data Types
+        </a>
+        <!-- Add more items as needed -->
+      </mat-nav-list>
+    </mat-expansion-panel>
+  
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-icon>settings</mat-icon>
+        <span>SQL Advanced</span>
+      </mat-expansion-panel-header>
+      <mat-nav-list>
+        <a mat-list-item routerLink="/sql/advancesql" routerLinkActive="active">
+          <mat-icon>chevron_right</mat-icon>
+          Performance Optimization
+        </a>
+        <!-- Add more items as needed -->
+      </mat-nav-list>
+    </mat-expansion-panel>
+  </mat-accordion>

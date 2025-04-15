@@ -1,0 +1,198 @@
+/* ===================== GLOBAL STYLES ===================== */
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+button {
+  font-size: 16px;
+}
+
+
+/* --- Root Colors for Consistency --- */
+:root {
+  --primary-color: #4caf50; /* Green */
+  --secondary-color: #ff9800; /* Orange */
+  --accent-color: #2196f3; /* Blue */
+  --background-color: #1e293b; /* Dark Blue */
+  --text-color: #ffffff; /* White */
+  --light-text: #e0e0e0;
+  --code-bg: #d2eaf3;
+  --code-text: #ffeb3b;
+}
+
+/* --- General Page Styling --- */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--background-color);
+  color: var(--text-color);
+}
+
+/* --- Headings --- */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+h1 { color: var(--primary-color); font-size: 32px; }
+h2 { color: var(--secondary-color); font-size: 26px; }
+h3 { color: var(--accent-color); font-size: 22px; }
+
+/* --- Paragraphs and Text --- */
+p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--light-text);
+}
+
+/* --- Links --- */
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+/* --- Buttons (Compatible with Angular Material) --- */
+/* button .mat-raised-button {
+  background: var(--primary-color);
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+} */
+
+button:hover, .mat-button:hover, .mat-raised-button:hover {
+  background: var(--secondary-color);
+}
+
+/* --- Sections and Containers --- */
+.section {
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Lists --- */
+ul, ol {
+  padding-left: 20px;
+}
+
+li {
+  font-size: 16px;
+  color: var(--code-text);
+  margin: 5px 0;
+}
+
+/* --- Code Blocks --- */
+code, pre {
+  display: block;
+  background: rgb(189, 222, 235);
+  color: var(--code-text);
+  padding: 12px;
+  border-radius: 5px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  overflow-x: auto;
+}
+
+code::before {
+  content: "💻 Code:";
+  display: block;
+  font-size: 12px;
+  color: var(--secondary-color);
+  margin-bottom: 5px;
+}
+
+/* --- Tables --- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ffffff33;
+  text-align: left;
+}
+
+th {
+  background: var(--primary-color);
+  color: #ffffff;
+}
+
+td {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* --- Forms --- */
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ffffff33;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+/* --- Responsive Design --- */
+@media screen and (max-width: 768px) {
+  body {
+      padding: 10px;
+  }
+
+  h1 {
+      font-size: 28px;
+  }
+
+  h2 {
+      font-size: 22px;
+  }
+
+  .section {
+      padding: 15px;
+  }
+
+  code {
+      font-size: 13px;
+  }
+}
+.container-card {
+  font-family: 'Arial', sans-serif; 
+  background-color: #f5edf3;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(238, 217, 217, 0.1);
+  max-width: 900px;
+  margin: 10px auto;
+}
+
+mat-card-header {
+  background-color: #3f51b5;
+  color: white;
+}
+
+mat-card-content {
+  background-color: #fafafa;
+}
+
+button {
+  margin-right: 10px;
+}

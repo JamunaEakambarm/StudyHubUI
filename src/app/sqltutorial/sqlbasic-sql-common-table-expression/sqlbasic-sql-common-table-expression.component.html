@@ -1,0 +1,193 @@
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>
+
+<div class="container">
+    <h1>Common Table Expressions (CTE) in SQL</h1>
+  
+    <div class="section">
+      <h2>What is a Common Table Expression (CTE)?</h2>
+      <p>
+        A <strong>Common Table Expression (CTE)</strong> is a temporary result set that can be referenced within a <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, or <code>DELETE</code> statement. CTEs are typically used to simplify complex queries, break down queries into manageable parts, and improve the readability of SQL code. They are created using the <code>WITH</code> keyword and can be thought of as a temporary table that only exists during the execution of a single query.
+      </p>
+      <p>
+        CTEs can help:
+      </p>
+      <ul>
+        <li>Improve query readability.</li>
+        <li>Enable recursion.</li>
+        <li>Avoid repetitive code.</li>
+      </ul>
+    </div>
+  
+    <div class="section">
+      <h2>Types of CTEs</h2>
+      <p>There are two main types of Common Table Expressions (CTEs):</p>
+      <ol>
+        <li><strong>Non-Recursive CTE</strong></li>
+        <li><strong>Recursive CTE</strong></li>
+      </ol>
+    </div>
+  
+    <div class="section">
+      <h2>1. Non-Recursive CTE</h2>
+      <p>
+        A <strong>Non-Recursive CTE</strong> is a simple CTE that is used to store a result set for use within a single query. It is not recursive and does not refer to itself. It is primarily used to simplify complex queries or break down a query into more manageable pieces.
+      </p>
+      <h3>Syntax:</h3>
+      <pre><code>
+  WITH CTE_Name AS (
+      SELECT column1, column2
+      FROM table_name
+      WHERE condition
+  )
+  SELECT * FROM CTE_Name;
+      </code></pre>
+  
+      <h3>Use Case:</h3>
+      <p>
+        - <strong>Breaking down complex queries:</strong> Non-recursive CTEs can make it easier to break complex queries into simpler parts.
+      </p>
+  
+      <h3>Example:</h3>
+      <pre><code>
+  WITH RegionalSales AS (
+      SELECT Region, SUM(SalesAmount) AS TotalSales
+      FROM Sales
+      WHERE YEAR(SaleDate) = 2024
+      GROUP BY Region
+  )
+  SELECT * FROM RegionalSales;
+      </code></pre>
+  
+      <p>
+        <strong>Explanation:</strong> The <code>WITH</code> clause defines the CTE called <code>RegionalSales</code>, which calculates the total sales for each region in the year 2024. The <code>SELECT * FROM RegionalSales</code> query then uses the CTE to fetch the result.
+      </p>
+    </div>
+  
+    <div class="section">
+      <h2>2. Recursive CTE</h2>
+      <p>
+        A <strong>Recursive CTE</strong> is a CTE that references itself. It is used for hierarchical or recursive queries where the result depends on previous iterations of the CTE. A recursive CTE consists of two parts:
+      </p>
+      <ul>
+        <li><strong>Anchor member:</strong> The first part of the CTE that provides the initial result set.</li>
+        <li><strong>Recursive member:</strong> The part that references the CTE itself and continues iterating until a specified condition is met.</li>
+      </ul>
+  
+      <h3>Syntax:</h3>
+      <pre><code>
+  WITH RECURSIVE CTE_Name AS (
+      -- Anchor member
+      SELECT column1, column2
+      FROM table_name
+      WHERE condition
+      
+      UNION ALL
+      
+      -- Recursive member
+      SELECT column1, column2
+      FROM table_name
+      INNER JOIN CTE_Name ON table_name.column = CTE_Name.column
+  )
+  SELECT * FROM CTE_Name;
+      </code></pre>
+  
+      <h3>Use Case:</h3>
+      <p>
+        - <strong>Hierarchical data:</strong> Recursive CTEs are often used for retrieving hierarchical data, such as organizational structures or bill-of-materials (BOM).
+      </p>
+  
+      <h3>Example:</h3>
+      <pre><code >
+  WITH RECURSIVE EmployeeHierarchy AS (
+      -- Anchor member: Top-level managers
+      SELECT EmployeeID, FirstName, LastName, ManagerID
+      FROM Employees
+      WHERE ManagerID IS NULL
+      
+      UNION ALL
+      
+      -- Recursive member: Subordinates
+      SELECT e.EmployeeID, e.FirstName, e.LastName, e.ManagerID
+      FROM Employees e
+      INNER JOIN EmployeeHierarchy eh ON e.ManagerID = eh.EmployeeID
+  )
+  SELECT * FROM EmployeeHierarchy;
+      </code></pre>
+  
+      <p>
+        <strong>Explanation:</strong> The anchor member selects employees with no manager (top-level managers). The recursive member selects employees whose <code>ManagerID</code> matches an <code>EmployeeID</code> from the previous level of the hierarchy. The recursion continues until all employees and their respective managers are retrieved.
+      </p>
+    </div>
+  
+    <div class="section">
+      <h2>Key Differences Between Non-Recursive and Recursive CTEs</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Definition</th>
+            <th>When to Use</th>
+            <th>Example Use Case</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Non-Recursive CTE</strong></td>
+            <td>A simple CTE that does not refer to itself.</td>
+            <td>When you need to break down complex queries into manageable parts.</td>
+            <td>Breaking down a large query into smaller, easier-to-read sections (e.g., calculating total sales).</td>
+          </tr>
+          <tr>
+            <td><strong>Recursive CTE</strong></td>
+            <td>A CTE that references itself to handle hierarchical or recursive data.</td>
+            <td>When querying hierarchical data like employee-manager relationships or organizational trees.</td>
+            <td>Retrieving employee hierarchies or bill-of-materials structures.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="section">
+      <h2>Advantages of Using CTEs</h2>
+      <ul>
+        <li>Improved Query Readability</li>
+        <li>Reusability</li>
+        <li>Recursive Queries</li>
+        <li>Simplified Complex Queries</li>
+        <li>Performance</li>
+      </ul>
+    </div>
+  
+    <div class="section">
+      <h2>Conclusion</h2>
+      <p>
+        Common Table Expressions (CTEs) are a powerful feature in SQL that allows you to create temporary result sets that can be referenced within a query. They make complex queries easier to read, manage, and debug. The two main types—<strong>Non-Recursive CTE</strong> and <strong>Recursive CTE</strong>—serve different purposes. Non-recursive CTEs are used to simplify complex queries, while recursive CTEs are used to handle hierarchical or recursive data structures. Understanding when to use CTEs can greatly enhance the readability and maintainability of your SQL queries.
+      </p>
+    </div>
+  </div>
+  
+  <div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>

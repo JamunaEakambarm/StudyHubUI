@@ -1,0 +1,191 @@
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>
+<div class="container">
+    <div class="section">
+    <h2>Recursive Queries in SQL</h2>  
+    <p class="para-start">
+      A <strong>recursive query</strong> in SQL is a query that refers to itself in order to retrieve hierarchical or 
+      tree-structured data. It is commonly used in <strong>organizational hierarchies, category trees, bill of materials, 
+      and graph-like structures.</strong>
+    </p>  
+    <p>Recursive queries are implemented using <strong>Common Table Expressions (CTEs)</strong> with a recursive <code>WITH</code> clause.</p>
+  
+    <h2>Components of a Recursive Query</h2>
+    <ul>
+      <li><strong>Anchor Query (Base Case):</strong> Retrieves the initial (base) rows of the result.</li>
+      <li><strong>Recursive Query (Recursive Member):</strong> References the Common Table Expression (CTE) and recursively retrieves additional rows.</li>
+    </ul>
+</div>
+<div class="section">
+    <h2>Types of Recursive Queries</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Simple Recursive Queries</strong></td>
+          <td>Used for basic hierarchies (e.g., parent-child relationships).</td>
+          <td>Employee-Manager hierarchy</td>
+        </tr>
+        <tr>
+          <td><strong>Multi-Level Recursive Queries</strong></td>
+          <td>Handles complex hierarchies with multiple levels.</td>
+          <td>Bill of Materials (BOM) structure</td>
+        </tr>
+        <tr>
+          <td><strong>Graph-Based Recursive Queries</strong></td>
+          <td>Used in scenarios like finding shortest paths or network connections.</td>
+          <td>Finding all reachable nodes in a social network</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="section">
+  
+    <h2>Uses of Recursive Queries</h2>
+    <ul>
+      <li>✅ <strong>Hierarchy Management</strong> (Employees & Managers, Product Categories)</li>
+      <li>✅ <strong>Tree Traversal</strong> (File Systems, Organization Charts)</li>
+      <li>✅ <strong>Graph Navigation</strong> (Social Networks, Shortest Path Finding)</li>
+      <li>✅ <strong>Bill of Materials (BOM)</strong> (Manufacturing Components)</li>
+      <li>✅ <strong>Path Finding</strong> (Finding shortest routes)</li>
+    </ul>
+  
+    
+  
+    <h2>Example 1: Employee-Manager Hierarchy</h2>
+    <h4>Table: Employee</h4>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>EmployeeID</th>
+          <th>Name</th>
+          <th>ManagerID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Alice</td><td>NULL</td></tr>
+        <tr><td>2</td><td>Bob</td><td>1</td></tr>
+        <tr><td>3</td><td>Charlie</td><td>1</td></tr>
+        <tr><td>4</td><td>David</td><td>2</td></tr>
+        <tr><td>5</td><td>Eve</td><td>2</td></tr>
+        <tr><td>6</td><td>Frank</td><td>3</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h4>Recursive Query:</h4>
+    <pre>
+      <code>
+  WITH EmployeeHierarchy AS (
+      SELECT EmployeeID, Name, ManagerID, 1 AS Level
+      FROM Employee
+      WHERE ManagerID IS NULL
+  
+      UNION ALL
+  
+      SELECT e.EmployeeID, e.Name, e.ManagerID, eh.Level + 1
+      FROM Employee e
+      INNER JOIN EmployeeHierarchy eh
+      ON e.ManagerID = eh.EmployeeID
+  )
+  SELECT * FROM EmployeeHierarchy;
+      </code>
+    </pre>
+  
+    <h4>Output:</h4>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>EmployeeID</th>
+          <th>Name</th>
+          <th>ManagerID</th>
+          <th>Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Alice</td><td>NULL</td><td>1</td></tr>
+        <tr><td>2</td><td>Bob</td><td>1</td><td>2</td></tr>
+        <tr><td>3</td><td>Charlie</td><td>1</td><td>2</td></tr>
+        <tr><td>4</td><td>David</td><td>2</td><td>3</td></tr>
+        <tr><td>5</td><td>Eve</td><td>2</td><td>3</td></tr>
+        <tr><td>6</td><td>Frank</td><td>3</td><td>3</td></tr>
+      </tbody>
+    </table>
+  
+    
+  
+    <h2>Example 2: Category Hierarchy</h2>
+    <h4>Table: Categories</h4>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>CategoryID</th>
+          <th>CategoryName</th>
+          <th>ParentCategoryID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Electronics</td><td>NULL</td></tr>
+        <tr><td>2</td><td>Laptops</td><td>1</td></tr>
+        <tr><td>3</td><td>Phones</td><td>1</td></tr>
+        <tr><td>4</td><td>Gaming Laptops</td><td>2</td></tr>
+        <tr><td>5</td><td>Ultrabooks</td><td>2</td></tr>
+      </tbody>
+    </table>
+  
+    </div>
+  <div class="section">
+    <h2>Limitations of Recursive Queries</h2>
+    <ul>
+      <li>🚫 <strong>Performance Issues:</strong> Recursive queries can be slow for deep hierarchies.</li>
+      <li>🚫 <strong>Cycle Detection:</strong> If there's a loop in the data, the query may run indefinitely.</li>
+      <li>🚫 <strong>Maximum Recursion Depth:</strong> Some databases limit recursion depth (e.g., SQL Server defaults to 100).</li>
+    </ul>
+  
+    <p>To prevent infinite loops, use:</p>
+    <pre><code>OPTION (MAXRECURSION 10);</code></pre>
+  
+  </div>
+  <div class="section">  
+    <h2>Conclusion</h2>
+    <ul>
+      <li>✅ <strong>Recursive Queries</strong> are powerful for working with hierarchical data.</li>
+      <li>✅ They use <strong>CTEs (`WITH` clause)</strong> to reference themselves.</li>
+      <li>✅ Common use cases: <strong>Organizational hierarchies, tree structures, graph navigation.</strong></li>
+      <li>✅ Optimize queries using <strong>indexes, depth limits, and cycle detection.</strong></li>
+    </ul>
+  </div>
+
+    
+  </div>
+  <div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>  

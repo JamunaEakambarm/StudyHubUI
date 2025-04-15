@@ -1,0 +1,23 @@
+<div class="login-container">
+  <!-- Close button at top right corner -->
+  <button class="close-button" (click)="navigateTo('/SQL/basicsql')" aria-label="Close login form">
+    &times;
+  </button>
+  
+  <h2>Login</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <label for="email">Email:</label>
+    <input type="email" id="email" formControlName="email" placeholder="Enter your email" title="Enter your email" required />
+  
+    <label for="password">Password:</label>
+    <input type="password" id="password" formControlName="password" placeholder="Enter your password" title="Enter your password" required />
+
+    <div class="button-group">
+      <button type="submit" [disabled]="loginForm.invalid">Login</button>
+      <button type="button" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+
+  <p class="error" aria-live="polite">{{ errorMessage }}</p>
+  <a routerLink="/register" title="Go to registration page">Don't have an account? Register</a>
+</div>

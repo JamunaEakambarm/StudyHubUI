@@ -1,0 +1,36 @@
+<p>course-form works!</p>
+
+<div class="course-form-container">
+  <h2>Add Course</h2>
+
+  <!-- Use ngSubmit to handle form submission -->
+  <form (ngSubmit)="saveCourse()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Title</mat-label>
+      <input
+        matInput
+        [(ngModel)]="course.title"
+        name="title"
+        required
+        type="text"
+        placeholder="Enter course title"
+        aria-label="Title"
+      />
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        [(ngModel)]="course.description"
+        name="description"
+        required
+        placeholder="Enter course description"
+        aria-label="Description"
+      ></textarea>
+    </mat-form-field>
+  
+    <button mat-raised-button color="primary" type="submit">Save</button>
+  </form>
+  
+</div>

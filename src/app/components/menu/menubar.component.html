@@ -1,0 +1,22 @@
+<!-- <nav class="menu-bar">
+  <button mat-button class="menu-item" (click)="toggleSqlMenu()" >
+    SQL
+    <mat-icon>{{ sqlMenuOpen ? 'expand_less' : 'expand_more' }}</mat-icon>
+  </button>
+   Add more menu items here as needed 
+</nav> -->
+
+<nav class="menu-bar">
+  <!-- MODIFIED: Added aria-expanded and simplified icon handling -->
+  <button mat-button class="menu-item" 
+          [attr.aria-expanded]="sqlMenuOpen" 
+          (click)="toggleSqlMenu()">
+    SQL
+    <!-- CHANGED: Single icon with rotation instead of icon swap -->
+    
+    <mat-icon>{{ sqlMenuOpen ? 'close' : 'menu' }}</mat-icon>
+  </button>
+  <!-- Add more menu items here as needed -->
+</nav>
+
+

@@ -1,0 +1,190 @@
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>
+
+<div class="container">
+    <div class="section">
+    <h1 class="text-center">Partitioning Data in SQL</h1>
+    <p class="para-start">
+      <strong>Partitioning</strong> is a technique used to divide large tables into smaller, more manageable pieces. Instead of querying an entire table, you can query only the relevant partition, thus improving performance, especially for large datasets. Partitioning helps optimize query performance, simplifies maintenance tasks, and can improve parallelism in data processing.
+    </p>
+  
+    <p class="para-start">
+      SQL partitioning is usually applied to a table or index and divides it into smaller parts, called <strong>partitions</strong>. These partitions allow data to be distributed more efficiently across multiple storage devices or server nodes.
+    </p>
+  
+    <h2>Types of Partitioning in SQL</h2>
+    <p class="para-start">There are several types of data partitioning in SQL, each with its specific use cases and behavior:</p>
+    <ul>
+      <li>Range Partitioning</li>
+      <li>List Partitioning</li>
+      <li>Hash Partitioning</li>
+      <li>Composite Partitioning</li>
+    </ul>
+   </div>
+    
+  <div class="section">
+    <h2>1. Range Partitioning</h2>
+    <p class="para-start"><strong>Range partitioning</strong> is used when data can be divided into ranges of values, such as a range of dates, numeric values, or any other continuous data. Each partition holds a range of values, and the rows in each partition fall within that range.</p>
+  
+    <h4>Use Case:</h4>
+    <p class="para-start">This type is commonly used when partitioning based on time intervals, such as dividing data by year, month, or day.</p>
+  
+    <h4>Example:</h4>
+    <pre><code>
+  CREATE TABLE Sales (
+      SaleID INT,
+      SaleDate DATE,
+      Amount DECIMAL
+  )
+  PARTITION BY RANGE (YEAR(SaleDate)) (
+      PARTITION P2020 VALUES LESS THAN (2021),
+      PARTITION P2021 VALUES LESS THAN (2022),
+      PARTITION P2022 VALUES LESS THAN (2023)
+  );
+    </code></pre>
+    <p><strong>Explanation:</strong></p>
+    <ul>
+      <li>The `Sales` table is partitioned by the year of the `SaleDate`.</li>
+      <li>`P2020` will hold sales records from 2020, `P2021` from 2021, and so on.</li>
+      <li>Each partition holds a specific range of data.</li>
+    </ul>
+</div>
+<div class="section">
+    
+  
+    <h2>2. List Partitioning</h2>
+    <p class="para-start"><strong>List partitioning</strong> is used when data can be grouped by specific values (discrete values) rather than a range. Each partition holds a set of specific values for a column.</p>
+  
+    <h4>Use Case:</h4>
+    <p class="para-start">This type is useful when you need to partition data based on specific categories or values, such as regions or product categories.</p>
+  
+    <h4>Example:</h4>
+    <pre><code>
+  CREATE TABLE Orders (
+      OrderID INT,
+      OrderDate DATE,
+      Region VARCHAR(50),
+      Amount DECIMAL
+  )
+  PARTITION BY LIST (Region) (
+      PARTITION PNorthAmerica VALUES IN ('USA', 'Canada'),
+      PARTITION PEUROPE VALUES IN ('UK', 'Germany', 'France'),
+      PARTITION PASIA VALUES IN ('China', 'Japan', 'India')
+  );
+    </code></pre>
+    <p><strong>Explanation:</strong></p>
+    <ul>
+      <li>The `Orders` table is partitioned by the `Region` column.</li>
+      <li>Each partition is defined by a list of specific values for the `Region` column, such as `North America`, `Europe`, and `Asia`.</li>
+      <li>Each partition holds records for a specific set of regions.</li>
+    </ul>
+  
+</div>
+<div class="section">  
+    <h2>3. Hash Partitioning</h2>
+    <p class="para-start"><strong>Hash partitioning</strong> is used when data needs to be distributed evenly across partitions, and there is no natural range or list. The data is hashed using a hash function, and the hash value determines the partition into which each row will go.</p>
+  
+    <h4>Use Case:</h4>
+    <p class="para-start">Hash partitioning is often used when you need to evenly distribute the data across partitions without a specific logical grouping, like when partitioning by customer IDs, user IDs, etc.</p>
+  
+    <h4>Example:</h4>
+    <pre><code>
+  CREATE TABLE Customers (
+      CustomerID INT,
+      Name VARCHAR(100),
+      Address VARCHAR(255)
+  )
+  PARTITION BY HASH (CustomerID)
+  PARTITIONS 4;
+    </code></pre>
+    <p><strong>Explanation:</strong></p>
+    <ul>
+      <li>The `Customers` table is partitioned by the `CustomerID` column.</li>
+      <li>The `PARTITIONS 4` clause creates 4 partitions, and the `CustomerID` is hashed to determine which partition each record goes to.</li>
+      <li>The data is distributed evenly across 4 partitions, ensuring no partition is overly large.</li>
+    </ul>
+  </div>
+  <div class="section">   
+  
+    <h2>4. Composite Partitioning</h2>
+    <p class="para-start"><strong>Composite partitioning</strong> combines multiple partitioning methods (like range and hash or list and range) to take advantage of multiple partitioning strategies for different types of data.</p>
+  
+    <h4>Use Case:</h4>
+    <p class="para-start">This type is useful when you want to partition the data based on a range of values, and then apply hash or list partitioning within each range.</p>
+  
+    <h4>Example:</h4>
+    <pre><code>
+  CREATE TABLE Transactions (
+      TransactionID INT,
+      TransactionDate DATE,
+      Region VARCHAR(50),
+      Amount DECIMAL
+  )
+  PARTITION BY RANGE (YEAR(TransactionDate)) 
+  SUBPARTITION BY LIST (Region)
+  (
+      PARTITION P2020 VALUES LESS THAN (2021) (
+          SUBPARTITION PNorthAmerica VALUES IN ('USA', 'Canada'),
+          SUBPARTITION PEUROPE VALUES IN ('UK', 'Germany', 'France')
+      ),
+      PARTITION P2021 VALUES LESS THAN (2022) (
+          SUBPARTITION PASIA VALUES IN ('China', 'Japan'),
+          SUBPARTITION PAfrica VALUES IN ('South Africa', 'Nigeria')
+      )
+  );
+    </code></pre>
+    <p><strong>Explanation:</strong></p>
+    <ul>
+      <li>The `Transactions` table is first partitioned by year (range partitioning).</li>
+      <li>Within each year, the data is further partitioned by region (list partitioning).</li>
+      <li>This allows efficient querying of specific years and regions.</li>
+    </ul>
+  </div>
+    <div class="section">
+    <h2>Advantages of Data Partitioning</h2>
+    <ul>
+      <li><strong>Improved Performance:</strong> Partitioning allows queries to scan only relevant partitions instead of the entire table, improving performance, especially with large datasets.</li>
+      <li><strong>Maintenance Ease:</strong> Managing smaller partitions is easier. Operations like backing up, restoring, or reorganizing data can be done on individual partitions.</li>
+      <li><strong>Parallel Processing:</strong> Partitioning allows parallel processing of queries or maintenance operations, as different partitions can be processed concurrently.</li>
+      <li><strong>Optimized Storage:</strong> Data can be stored on different physical devices or disk systems for better load balancing.</li>
+    </ul>
+    </div>
+    <div class="section">    
+  
+    <h2>Key Considerations When Using Partitioning</h2>
+    <ul>
+      <li><strong>Partitioning Key Choice:</strong> The choice of partitioning key (such as a column) is crucial for partitioning efficiency. It should be chosen based on how the data is queried.</li>
+      <li><strong>Complexity:</strong> While partitioning can improve performance, it can also add complexity to the database schema and query optimization.</li>
+      <li><strong>Query Optimization:</strong> Some queries may require access to multiple partitions, which can reduce the benefits of partitioning in certain cases.</li>
+    </ul>
+  
+   
+    <h2>Conclusion</h2>
+    <p class="para-start">Partitioning data in SQL is an essential strategy for managing large tables and optimizing query performance. Depending on the nature of the data and the types of queries you frequently run, you can choose from range, list, hash, or composite partitioning. By using partitioning appropriately, you can improve query speed, make maintenance easier, and better distribute the data across your storage system. Always consider your specific use case and workload requirements when implementing partitioning to achieve optimal results.</p>
+    </div>
+  </div>
+  
+  <div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>

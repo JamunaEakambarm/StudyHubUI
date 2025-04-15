@@ -1,0 +1,128 @@
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>
+<!-- sqljoin.component.html -->
+
+<div class="container-card">
+    <h1>SQL Joins</h1>
+    <div class="section">
+                    <p class="para-start">An SQL JOIN is a powerful feature in relational databases that allows you to combine rows from two or more tables based on a related column between them. Joins are essential when working with normalized databases, where data is distributed across multiple tables.
+        For example, in a banking system, customers and transactions might be stored in separate tables, but using a JOIN, you can retrieve a combined view showing which customer made which transaction.        
+        SQL provides different types of joins to handle various data relationships, such as:</p><ul >
+        <li>INNER JOIN</li>
+        <li>LEFT JOIN (or LEFT OUTER JOIN)</li>
+        <li>RIGHT JOIN (or RIGHT OUTER JOIN)</li>
+        <li>FULL JOIN (or FULL OUTER JOIN)</li>
+        <li>CROSS JOIN</li>
+        <li>SELF JOIN</li>  
+      </ul>     
+    </div>
+  
+    <div class="section">
+      <h2>INNER JOIN</h2>
+      <p class="para-start"> An INNER JOIN retrieves only the rows where there is a match in both tables.</p>
+      <p><strong>Use Case:</strong> If you want to find the details of transactions (from a transaction table) for </p>
+      <p>specific bank accounts (from an accounts table), you would use an INNER JOIN. Only the accounts that have </p>
+      <p>corresponding transactions will be shown.</p>
+      <code>
+        SELECT customers.customer_id, customers.customer_name, 
+        transactions.transaction_id, transactions.amount
+        FROM customers
+        INNER JOIN transactions ON customers.customer_id = transactions.customer_id;
+      </code>
+    </div>
+  
+    <div class="section">
+      <h2>LEFT JOIN (or LEFT OUTER JOIN)</h2>
+      <p class="para-start"> A LEFT JOIN returns all rows from the left table and the</p> 
+        <p>matched rows from the right table. If there is no match, the result is NULL for columns from the right table.</p>
+      <p><strong>Use Case:</strong> You might want to show a list of all customers and their loans. Some customers may </p>
+        <p> have loans, but you still want to display them, with NULL for loan details where there is no loan.</p>
+      <code>
+        SELECT customers.customer_id, customers.customer_name, loans.loan_id, loans.loan_amount
+        FROM customers
+        LEFT JOIN loans ON customers.customer_id = loans.customer_id;
+      </code>
+    </div>
+  
+    <div class="section">
+      <h2>RIGHT JOIN (or RIGHT OUTER JOIN)</h2>
+      <p class="para-start"> A RIGHT JOIN is the opposite of a LEFT JOIN. It returns all rows from the right table and the matched rows from the left table. If there is no match, the result is NULL for columns from the left table.</p>
+      <p><strong>Use Case:</strong> Imagine you have a list of loans and you want to check for customers that have no related loan records. You can use a RIGHT JOIN if you're mainly concerned with the loan data.</p>
+      <pre><code>
+        SELECT loans.loan_id, loans.loan_amount, customers.customer_id, customers.customer_name
+        FROM loans
+        RIGHT JOIN customers ON loans.customer_id = customers.customer_id;
+      </code></pre>
+    </div>
+  
+    <div class="section">
+      <h2>FULL JOIN (or FULL OUTER JOIN)</h2>
+      <p class="para-start">A FULL JOIN returns all rows when there is a match in either the left or right table. If there is no match, NULL is returned for non-matching rows from both tables.</p>
+      <p><strong>Use Case:</strong> Suppose you want to retrieve all accounts and all transactions, but some accounts may not have transactions, or some transactions might not be associated with an account. You would use a FULL JOIN.</p>
+      <code>
+        SELECT accounts.account_id, accounts.balance, transactions.transaction_id, transactions.amount
+        FROM accounts
+        FULL JOIN transactions ON accounts.account_id = transactions.account_id;
+      </code>
+    </div>
+  
+    <div class="section">
+      <h2>CROSS JOIN</h2>
+      <p class="para-start"> A CROSS JOIN returns the Cartesian product of the two tables. This means every row in the left table is combined with every row in the right table. Be cautious with this join as it can produce very large datasets.</p>
+      <p><strong>Use Case:</strong> While not frequently used, a CROSS JOIN could be used if you need to calculate all possible combinations of products and customers, such as generating all possible loan-product combinations.</p>
+      <code>
+        SELECT customers.customer_id, loans.loan_id
+        FROM customers
+        CROSS JOIN loans;
+      </code>
+    </div>
+  
+    <div class="section">
+      <h2>SELF JOIN</h2>
+      <p class="para-start">A SELF JOIN is when a table is joined with itself. This is useful when you need to compare rows within the same table.</p>
+      <p><strong>Use Case:</strong> For example, if you wanted to compare transactions for the same customer over time, you could use a self join on the transactions table.</p>
+     <code>
+        SELECT t1.transaction_id, t1.amount, t2.transaction_id, t2.amount
+        FROM transactions t1
+        JOIN transactions t2 ON t1.customer_id = t2.customer_id
+        WHERE t1.transaction_date < t2.transaction_date;
+      </code>
+    </div>
+    <div class="section">
+      <h2>Summary of Join Types:</h2>
+      <ul>
+        <li>INNER JOIN – Returns rows with matching values in both tables.</li>
+        <li>LEFT JOIN – Returns all rows from the left table and matched rows from the right table.</li>
+        <li>RIGHT JOIN – Returns all rows from the right table and matched rows from the left table.</li>
+        <li>FULL JOIN – Returns all rows when there is a match in either left or right table.</li>
+        <li>CROSS JOIN – Returns the Cartesian product of both tables (every combination of rows).</li>
+        <li>SELF JOIN – Joins a table with itself to compare rows within the same table.</li>
+
+      </ul>
+    </div>
+  
+  </div>
+  <div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>

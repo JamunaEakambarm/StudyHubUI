@@ -1,0 +1,103 @@
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  background: #fffbfe;
+  color: #333;
+  padding: 1.5rem;
+  box-shadow: 2px 0 10px rgba(164, 220, 235, 0.1);
+  transition: width 0.3s ease, padding 0.3s ease;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Compact state styles */
+.sidebar.compact {
+  width: 80px;
+  padding: 1rem 0.5rem;
+}
+
+/* Logo styles */
+.sidebar-logo {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #36f824;
+}
+
+.sidebar-logo img {
+  width: 140px;
+  height: auto;
+  transition: all 0.3s ease;
+}
+
+.sidebar.compact .sidebar-logo img {
+  width: 40px;
+}
+
+/* List items */
+.mat-nav-list a {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  color: #333;
+  text-decoration: none;
+  border-radius: 8px;
+  margin: 4px 0;
+  transition: all 0.3s ease;
+}
+
+.sidebar.compact .mat-nav-list a {
+  padding: 10px;
+  justify-content: center;
+}
+
+.mat-nav-list a:hover {
+  background: #bbfafa;
+}
+
+.mat-nav-list a.active {
+  background: #1abc9c;
+  color: white;
+}
+
+/* Hide text in compact mode */
+.sidebar.compact .mat-nav-list a span {
+  display: none;
+}
+
+/* Expansion panel adjustments */
+.sql-tutorial-panel {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.sql-tutorial-panel .mat-expansion-panel-header {
+  padding: 0 8px;
+  height: 40px;
+}
+
+.sidebar.compact .sql-tutorial-panel .mat-expansion-panel-header-title,
+.sidebar.compact .sql-tutorial-panel .mat-expansion-indicator {
+  display: none;
+}
+
+/* Tooltip for compact mode */
+.sidebar.compact a {
+  position: relative;
+}
+
+.sidebar.compact a:hover::after {
+  content: attr(matTooltip);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  margin-left: 10px;
+  font-size: 14px;
+}

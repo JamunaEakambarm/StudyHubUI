@@ -1,0 +1,127 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full height */
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+mat-sidenav {
+  width: 300px; /* Match sidebar width */
+  /* Match sidebar background    background: #2c3e50;*/
+  height: 100vh; /* Full height */
+}
+
+mat-sidenav-content {
+  flex-grow: 1; /* Take up remaining space */
+  padding: 10px;
+}
+
+.content {
+  
+  padding: 1px;
+  margin-top: 2px; /* Adjust based on your topbar height */
+}
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.content-area {
+  margin-left: 10px;
+  padding: 10px;
+  flex-grow: 1;
+  transition: margin-left 0.3s ease;
+}
+
+.menu-open + .content-area {
+  margin-left: 220px;
+  position: fixed;
+  top: 64px; /* Height of the topbar */
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+@media (max-width: 767px) {
+  .content-area {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* Horizontal Only Plane Animation */
+.plane-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.plane-image {
+  position: absolute;
+  width: 120px;
+  height: auto;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2)) brightness(1.05);
+  animation: flyHorizontal 20s linear infinite;
+  transform-origin: center center;
+  top: 20px; /* Fixed 20px from top */
+}
+
+@keyframes flyHorizontal {
+  /* Left to Right */
+  0% {
+    left: 20px;
+    transform: rotate(0deg);
+  }
+  40% {
+    left: calc(100% - 140px); /* Account for plane width */
+    transform: rotate(0deg);
+  }
+  
+  /* Pause at right */
+  45% {
+    left: calc(100% - 140px);
+    transform: rotate(0deg);
+  }
+  50% {
+    left: calc(100% - 140px);
+    transform: rotateY(180deg); /* Flip horizontally */
+  }
+  
+  /* Right to Left */
+  55% {
+    left: calc(100% - 140px);
+    transform: rotateY(180deg);
+  }
+  95% {
+    left: 20px;
+    transform: rotateY(180deg);
+  }
+  
+  /* Pause at left */
+  96% {
+    left: 20px;
+    transform: rotateY(180deg);
+  }
+  100% {
+    left: 20px;
+    transform: rotateY(0deg); /* Reset rotation */
+  }
+}

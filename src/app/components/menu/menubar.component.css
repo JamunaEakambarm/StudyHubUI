@@ -1,0 +1,124 @@
+.menu-bar {
+
+  display: flex;
+  background-color:white;
+  color: white;
+  /*padding: 0 16px;*/
+  height: 48px;
+  align-items: center;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;  
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  /* display: flex;
+  background-color:white;
+  color: white;
+  padding: 0 16px;
+  height: 48px;
+  align-items: center;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;  
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 1000; */
+}
+
+.menu-item {
+
+
+  color: rgb(235, 37, 37);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  margin-right: 20px;
+  color: #333333;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+/*   
+  color: rgb(235, 37, 37);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  margin-right: 20px;
+  color: #333333;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease; */
+  
+}
+
+/* NEW: Hover state for better UX */
+.menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+.menu-item[aria-expanded="true"] {
+  background-color: rgba(0, 0, 0, 0.08);
+  color: rgb(235, 37, 37); /* Brand red color */
+}
+
+/* NEW: Icon transition and rotation */
+.menu-item mat-icon {
+  transition: transform 0.3s ease;
+}
+
+/* NEW: Rotate icon when expanded */
+.menu-item[aria-expanded="true"] mat-icon {
+  color: rgb(235, 37, 37); /* Match text color */
+  transform: rotate(180deg); /* Flip the icon */
+}
+/* Add these to your existing CSS */
+.sidenav-container {
+  height: calc(100vh - 48px); /* Adjust based on your menu bar height */
+  margin-top: 48px; /* Same as menu bar height */
+}
+
+.sql-sidenav {
+  width: 250px;
+  border-right: 1px solid #e0e0e0;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+/* SQL Overlay Sidebar Styles */
+.sql-sidebar-overlay {
+  position: fixed;
+  top: 48px; /* Match menu bar height */
+  left: 0;
+  width: 0;
+  height: calc(100vh - 48px);
+  background: white;
+  z-index: 998;
+  transition: 
+    width 0.3s ease,
+    visibility 0.3s ease;
+  overflow: hidden;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  visibility: hidden;
+}
+
+.sql-sidebar-overlay.open {
+  width: 300px;
+  visibility: visible;
+}
+
+.sql-sidebar-content {
+  width: 300px;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.2s ease 0.1s; /* Delayed fade-in */
+}
+
+.sql-sidebar-overlay.open .sql-sidebar-content {
+  opacity: 1;
+}

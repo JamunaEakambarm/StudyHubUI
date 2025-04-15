@@ -1,0 +1,29 @@
+mat-expansion-panel {
+    background: transparent;
+    color: white;
+    box-shadow: none !important;
+  }
+  
+  mat-expansion-panel-header {
+    padding: 0 16px;
+  }
+  
+  mat-panel-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+  
+  mat-list-item {
+    padding-left: 16px;
+  }
+  
+  mat-list-item mat-icon {
+    margin-right: 8px;
+  }
