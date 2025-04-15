@@ -1,0 +1,41 @@
+.app-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .form-container {
+    margin-top: 20px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  input {
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 1rem;
+  }
+  
+  button {
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  p {
+    font-size: 1.1rem;
+    color: green;
+  }
+  

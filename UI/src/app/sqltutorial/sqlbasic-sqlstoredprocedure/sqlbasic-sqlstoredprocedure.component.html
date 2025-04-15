@@ -1,0 +1,88 @@
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>
+<div class="container-card">
+    
+    <mat-card class="section">
+      <h1> SQL Stored Procedures </h1>
+  
+      <mat-card-content>
+        <p class="para-start">
+          A <strong>Stored Procedure</strong> is a precompiled set of SQL statements that can be executed as a single unit. It allows you to store and reuse SQL code, making database operations more efficient and secure. Stored procedures can accept input parameters, return output values, and handle business logic inside the database.
+        </p>
+        <div class="section">
+        <h3>Advantages of Stored Procedures:</h3>
+        <ul>
+          <li>Improves Performance</li>
+          <li>Reusability</li>
+          <li>Security</li>
+          <li>Reduces Network Traffic</li>
+          <li>Encapsulates Business Logic</li>
+        </ul>
+  
+        <h3>Basic Syntax:</h3>
+        <pre><code>CREATE PROCEDURE ProcedureName AS BEGIN -- SQL Statements END;</code></pre>
+    </div>
+    <div class="section">
+        <h3>Types of Stored Procedures:</h3>
+        
+        <h4>1. Stored Procedure Without Parameters</h4>
+        <p>Example: Retrieve all employees</p>
+        <pre><code>CREATE PROCEDURE GetAllEmployees AS BEGIN SELECT * FROM Employees; END;</code></pre>
+    </div>
+    <div class="section"> 
+        <h4>2. Stored Procedure With Input Parameters</h4>
+        <p>Example: Get employee details by department</p>
+        <pre><code>CREATE PROCEDURE GetEmployeesByDepartment &#64;DepartmentID INT AS BEGIN SELECT * FROM Employees WHERE DepartmentID = &#64;DepartmentID; END;</code></pre>
+      </div>
+      <div class="section">  
+        <h4>3. Stored Procedure With Output Parameter</h4>
+        <p>Example: Get total employees count</p>
+        <pre><code>CREATE PROCEDURE GetTotalEmployees &#64;TotalCount INT OUTPUT AS BEGIN SELECT &#64;TotalCount = COUNT(*) FROM Employees; END;</code></pre>
+      </div>
+      <div class="section">
+        <h4>4. Stored Procedure With Multiple Parameters</h4>
+        <p>Example: Retrieve employees based on department and job title</p>
+        <pre><code>CREATE PROCEDURE GetEmployeesByDeptAndJob &#64;DepartmentID INT, &#64;JobTitle VARCHAR(50) AS BEGIN SELECT * FROM Employees WHERE DepartmentID = &#64;DepartmentID AND JobTitle = &#64;JobTitle; END;</code></pre>
+      </div>
+      <div class="section">
+        <h4>5. Stored Procedure With Transactions</h4>
+        <p>Example: Transferring funds between accounts</p>
+        <pre><code>CREATE PROCEDURE TransferFunds &#64;SenderID INT, &#64;ReceiverID INT, &#64;Amount DECIMAL(10,2) AS BEGIN BEGIN TRANSACTION; UPDATE Accounts SET Balance = Balance - &#64;Amount WHERE AccountID = &#64;SenderID; UPDATE Accounts SET Balance = Balance + &#64;Amount WHERE AccountID = &#64;ReceiverID; COMMIT TRANSACTION; END;</code></pre>
+        </div>
+        <div class="section">
+        <h3>Use Cases of Stored Procedures:</h3>
+        <ul>
+          <li>Data Validation and Business Rules</li>
+          <li>Batch Processing</li>
+          <li>Data Security</li>
+          <li>Logging and Auditing</li>
+          <li>Complex Data Manipulation</li>
+        </ul>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>  

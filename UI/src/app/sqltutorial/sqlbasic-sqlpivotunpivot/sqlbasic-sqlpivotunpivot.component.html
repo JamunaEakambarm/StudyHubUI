@@ -1,0 +1,233 @@
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>
+<div class="container">
+    <div class="section">
+    <h1>SQL Pivot & Unpivot</h1>
+  
+    <h2>What is PIVOT in SQL?</h2>
+    <p>
+      The <strong>PIVOT</strong> operator in SQL transforms row values into columns, making data more readable and suitable for reporting.
+    </p>
+  
+    <h4>✅ Use Cases:</h4>
+    <ul>
+      <li>Converting categorical values into columns.</li>
+      <li>Creating summary reports.</li>
+      <li>Aggregating data based on specific conditions.</li>
+    </ul>
+</div>
+<div class="section">
+    <h2>Types of PIVOT Queries</h2>
+    <ol>
+      <li><strong>Static Pivot</strong> – Column names are predefined.</li>
+      <li><strong>Dynamic Pivot</strong> – Column names are generated dynamically.</li>
+    </ol>
+  
+    <h2>Example 1: Static Pivot</h2>
+    <h4>Table: Sales</h4>
+    <table border="1">
+      <tr>
+        <th>Product</th>
+        <th>Year</th>
+        <th>Sales</th>
+      </tr>
+      <tr>
+        <td>Laptop</td>
+        <td>2022</td>
+        <td>1000</td>
+      </tr>
+      <tr>
+        <td>Laptop</td>
+        <td>2023</td>
+        <td>1500</td>
+      </tr>
+      <tr>
+        <td>Phone</td>
+        <td>2022</td>
+        <td>800</td>
+      </tr>
+      <tr>
+        <td>Phone</td>
+        <td>2023</td>
+        <td>1200</td>
+      </tr>
+    </table>
+  
+    <h4>Output after Pivot</h4>
+    <table border="1">
+      <tr>
+        <th>Product</th>
+        <th>2022</th>
+        <th>2023</th>
+      </tr>
+      <tr>
+        <td>Laptop</td>
+        <td>1000</td>
+        <td>1500</td>
+      </tr>
+      <tr>
+        <td>Phone</td>
+        <td>800</td>
+        <td>1200</td>
+      </tr>
+    </table>
+  
+    <h2>Example 2: Dynamic Pivot</h2>
+    <p>When column values are unknown, dynamic SQL generates them at runtime.</p>
+    <pre>
+        <code>
+            DECLARE &#64;columns NVARCHAR(MAX), &#64;query NVARCHAR(MAX);
+SET &#64;columns = STUFF((
+    SELECT DISTINCT ',' + QUOTENAME(Year)
+    FROM Sales
+    FOR XML PATH(''), TYPE).value('.', 'NVARCHAR(MAX)'), 1, 1, '');
+
+SET &#64;query = '
+SELECT * FROM 
+(
+    SELECT Product, Year, Sales
+    FROM Sales
+) src
+PIVOT
+(
+    SUM(Sales) 
+    FOR Year IN (' + &#64;columns + ')
+) AS PivotTable';
+
+EXEC sp_executesql &#64;query;
+        </code>
+    </pre>
+    <p>🔹 **Explanation:**
+        - `STUFF()` dynamically generates **column names**.
+        - `EXEC sp_executesql` executes the dynamic SQL.</p>
+</div>
+<div class="section">  
+    <h2>What is UNPIVOT in SQL?</h2>
+    <p>The <strong>UNPIVOT</strong> operator converts columns back into rows, reversing PIVOT.</p>
+  
+    <h4>✅ Use Cases:</h4>
+    <ul>
+      <li>Normalizing denormalized data.</li>
+      <li>Transforming wide tables into long tables.</li>
+    </ul>
+  
+    <h2>Example 3: Unpivoting Data</h2>
+    <h4>Pivoted Sales Table</h4>
+    <table border="1">
+      <tr>
+        <th>Product</th>
+        <th>2022</th>
+        <th>2023</th>
+      </tr>
+      <tr>
+        <td>Laptop</td>
+        <td>1000</td>
+        <td>1500</td>
+      </tr>
+      <tr>
+        <td>Phone</td>
+        <td>800</td>
+        <td>1200</td>
+      </tr>
+    </table>
+  
+    <h4>Output after Unpivot</h4>
+    <table border="1">
+      <tr>
+        <th>Product</th>
+        <th>Year</th>
+        <th>Sales</th>
+      </tr>
+      <tr>
+        <td>Laptop</td>
+        <td>2022</td>
+        <td>1000</td>
+      </tr>
+      <tr>
+        <td>Laptop</td>
+        <td>2023</td>
+        <td>1500</td>
+      </tr>
+      <tr>
+        <td>Phone</td>
+        <td>2022</td>
+        <td>800</td>
+      </tr>
+      <tr>
+        <td>Phone</td>
+        <td>2023</td>
+        <td>1200</td>
+      </tr>
+    </table>
+  
+    <h2>Pivot vs. Unpivot Comparison</h2>
+    <table border="1">
+      <tr>
+        <th>Feature</th>
+        <th>Pivot</th>
+        <th>Unpivot</th>
+      </tr>
+      <tr>
+        <td>Converts</td>
+        <td>Rows to Columns</td>
+        <td>Columns to Rows</td>
+      </tr>
+      <tr>
+        <td>Purpose</td>
+        <td>Data Aggregation</td>
+        <td>Data Normalization</td>
+      </tr>
+      <tr>
+        <td>Example</td>
+        <td>Convert years into columns</td>
+        <td>Convert years back into rows</td>
+      </tr>
+    </table>
+</div>
+<div class="section">
+    <h2>Limitations</h2>
+    <h4>🚫 PIVOT:</h4>
+    <ul>
+      <li>Column names must be known in advance (unless using dynamic SQL).</li>
+      <li>Performance may suffer for large datasets.</li>
+    </ul>
+  
+    <h4>🚫 UNPIVOT:</h4>
+    <ul>
+      <li>Cannot handle aggregated data.</li>
+      <li>May produce duplicate rows.</li>
+    </ul>
+</div>
+<div class="section">
+    <h2>Conclusion</h2>
+    <ul>
+      <li><strong>PIVOT</strong> transforms rows into columns for better readability.</li>
+      <li><strong>UNPIVOT</strong> converts columns back into rows, helping with data normalization.</li>
+      <li>Dynamic PIVOT is useful when column names are unknown.</li>
+    </ul>
+</div>
+  </div>
+  <div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>  

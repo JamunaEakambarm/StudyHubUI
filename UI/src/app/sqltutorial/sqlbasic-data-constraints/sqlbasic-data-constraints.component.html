@@ -1,0 +1,102 @@
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>
+<div class="container-card">
+    <div class="header">
+      <h1>Data Constraints in SQL</h1>
+      <p>Data constraints are rules applied to table columns to ensure data accuracy and integrity.</p>
+    </div>
+  
+    <!-- Types of Constraints -->
+    <div class="section">
+      <h2>Types of Constraints:</h2>
+      <ul>
+        <li><strong>PRIMARY KEY</strong> - Uniquely identifies each record in a table.</li>
+        <li><strong>FOREIGN KEY</strong> - Ensures a relationship between two tables.</li>
+        <li><strong>UNIQUE</strong> - Ensures all values in a column are distinct.</li>
+        <li><strong>NOT NULL</strong> - Prevents null (empty) values in a column.</li>
+        <li><strong>CHECK</strong> - Restricts values based on a condition.</li>
+        <li><strong>DEFAULT</strong> - Assigns a default value if none is provided.</li>
+      </ul>
+    </div>
+  
+    <!-- Primary Key Example -->
+    <div class="section">
+      <h2> PRIMARY KEY Constraint</h2>
+      <p>Ensures that each record is unique and not null.</p>
+      <p><strong>Example (Bank Customers Table with Primary Key):</strong></p>
+      <code>CREATE TABLE Customers (
+      CustomerID INT PRIMARY KEY,
+      FirstName VARCHAR(50),
+      LastName VARCHAR(50),
+      Email VARCHAR(100) UNIQUE);</code>
+    </div>
+  
+    <!-- Foreign Key Example -->
+    <div class="section">
+      <h2>FOREIGN KEY Constraint</h2>
+      <p>Links one table to another, ensuring referential integrity.</p>
+      <p><strong>Example (Accounts Table Linked to Customers Table):</strong></p>
+      <code>CREATE TABLE Accounts (
+      AccountID INT PRIMARY KEY,
+      CustomerID INT,
+      AccountType VARCHAR(20),
+      Balance DECIMAL(10,2),
+      FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID));</code>
+    </div>
+  
+    <!-- Unique Constraint Example -->
+    <div class="section">
+      <h2> UNIQUE Constraint</h2>
+      <p>Prevents duplicate values in a column.</p>
+      <p><strong>Example (Ensuring Unique Email IDs for Customers):</strong></p>
+      <code>ALTER TABLE Customers ADD CONSTRAINT UniqueEmail UNIQUE (Email);</code>
+    </div>
+  
+    <!-- Not Null Constraint Example -->
+    <div class="section">
+      <h2> NOT NULL Constraint</h2>
+      <p>Prevents null (empty) values in a column.</p>
+      <p><strong>Example (Ensuring Customers Must Have an Email):</strong></p>
+      <code>ALTER TABLE Customers ALTER COLUMN Email SET NOT NULL;</code>
+    </div>
+  
+    <!-- Check Constraint Example -->
+    <div class="section">
+      <h2> CHECK Constraint</h2>
+      <p>Restricts column values based on a condition.</p>
+      <p><strong>Example (Ensuring Minimum Balance in a Bank Account):</strong></p>
+      <code>ALTER TABLE Accounts ADD CONSTRAINT CheckBalance CHECK (Balance >= 1000);</code>
+    </div>
+  
+    <!-- Default Constraint Example -->
+    <div class="section">
+      <h2> DEFAULT Constraint</h2>
+      <p>Provides a default value if no value is provided.</p>
+      <p><strong>Example (Setting Default Account Type as 'Savings'):</strong></p>
+      <code>ALTER TABLE Accounts ADD COLUMN AccountType VARCHAR(20) DEFAULT 'Savings';</code>
+    </div>
+  </div>
+  <div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>

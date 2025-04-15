@@ -1,0 +1,58 @@
+<p>Sidebar works!</p>
+
+<mat-sidenav mode="side" opened>
+  <mat-nav-list>
+    <!-- <a mat-list-item routerLink="/courses">Courses</a>
+    <a mat-list-item routerLink="/add-course">Add Course</a>
+    <a mat-list-item routerLink="/Employee">Employee</a> -->
+    <div class="sidebar-logo">
+      <img src="src/app/images/studyemog.png" alt="Study Logo" />
+    </div>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>SQL Tutorial</mat-expansion-panel-header>
+      <mat-nav-list>
+
+        <!-- SQL Basic Section -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>SQL Basic</mat-expansion-panel-header>
+          <mat-nav-list>
+            <a mat-list-item routerLink="/SQL/basicsql">Introduction</a>
+            <a mat-list-item routerLink="/SQL/basicsql-Sqldatatype">SQL Data Type</a>
+            <a mat-list-item routerLink="/SQL/basicsql-crud">CRUD Operations</a>
+            <a mat-list-item routerLink="/SQL/basicsql-dataconstraints">Data Constraints</a>
+            <a mat-list-item routerLink="/SQL/basicsql-sqloperators">SQL Operators</a>
+            <a mat-list-item routerLink="/SQL/basicsql-sqlfunction">SQL Functions</a>
+            <a mat-list-item routerLink="/SQL/basicsql-sqljoin">SQL Joins</a>
+            <a mat-list-item routerLink="/SQL/basicsql-sqlsubquery">SQL Subquery</a>
+            <a mat-list-item routerLink="/SQL/basicsql-sqlviews">SQL Views</a>
+            <a mat-list-item routerLink="/SQL/basicsql-sqlindexes">SQL Indexes</a>
+            <a mat-list-item routerLink="/SQL/basicsql-sqlstoredprocedure">SQL Stored Procedure</a>
+            <a mat-list-item routerLink="/SQL/SqlbasicSqltransactionsComponent">SQL Transactions</a>
+            <a mat-list-item routerLink="/SQL/SqlbasicSqltriggersComponent">SQL Triggers</a>
+            <a mat-list-item routerLink="/SQL/SqlbasicSqlCommonTableExpressionComponent">SQL CTE</a>
+            <a mat-list-item routerLink="/SQL/SqlbasicSqlpartitioningComponent">SQL Partitioning</a>
+            <a mat-list-item routerLink="/SQL/SqlbasicSqlNormalizationComponent">SQL Normalization</a>
+            <a mat-list-item routerLink="/SQL/SqlbasicSqlrecursivequeryComponent">SQL Recursive Queries</a>
+            <a mat-list-item routerLink="/SQL/SqlbasicSqlpivotunpivotComponent">SQL Pivot & Unpivot</a>
+            <a mat-list-item routerLink="/SQL/SqlbasicSqljsonComponent">JSON Data Handling in SQL</a>
+            <a mat-list-item routerLink="/SQL/SqlbasicSqlfullTextSearchComponent">Full-Text Search in SQL</a>
+            
+          </mat-nav-list>
+        </mat-expansion-panel>
+<br>
+        <!-- SQL Advanced Section-->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>SQL Advanced</mat-expansion-panel-header>
+          <mat-nav-list>
+            <a mat-list-item routerLink="/SQL/SqlAdvanceSequrityinsqlEncriptmaskComponent" matTooltip="Security in SQL (Encryption & Masking)" matTooltipPosition="right">Security in SQL (Encryption & Masking)</a>
+            <a mat-list-item routerLink="/SQL/SqlAdvancePerformanceOptimizationComponent" matTooltip="Performance Optimazation in SQL" matTooltipPosition="right">Performance Optimazation in SQL</a>
+            <a mat-list-item routerLink="/SQL/SQL-Practice">SQL Practice</a>
+          </mat-nav-list>
+        </mat-expansion-panel> 
+
+      </mat-nav-list>
+    </mat-expansion-panel>
+
+  </mat-nav-list>
+</mat-sidenav>

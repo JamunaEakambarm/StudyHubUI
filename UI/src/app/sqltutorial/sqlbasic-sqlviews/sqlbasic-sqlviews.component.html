@@ -1,0 +1,105 @@
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>
+<div class="container">
+    <h1>SQL Views</h1>
+  
+    <div class="section">
+      <h2>What is a View?</h2>
+      <p class="para-start">A <strong>View</strong> in SQL is a virtual table based on a query result. It simplifies complex queries and enhances data security.</p>
+    </div>
+  
+    <div class="section">
+      <h2>Types of Views</h2>
+      <ul>
+        <li><strong>Simple View</strong> – Based on a single table.</li>
+        <li><strong>Complex View</strong> – Involves multiple tables and aggregations.</li>
+        <li><strong>Materialized View</strong> – Physically stores query results.</li>
+        <li><strong>Inline View</strong> – A subquery within the `FROM` clause.</li>
+      </ul>
+    </div>
+  
+    <div class="section">
+      <h2>Examples of Views</h2> 
+       <div class="section">
+        <h2> Simple View</h2>
+        <p >Shows only active customers from the <strong>Customer </strong>table.</p>
+        <code>
+  CREATE VIEW ActiveCustomers AS
+  SELECT CustomerID, FirstName, LastName, AccountStatus 
+  FROM Customers
+  WHERE AccountStatus = 'Active';</code>
+    </div>
+  
+      <div class="section">
+        <h2>Complex View</h2>
+        <p>Displays customer names and their total account balance.</p>
+        <code>
+  CREATE VIEW CustomerBalance AS
+  SELECT c.CustomerID, c.FirstName, c.LastName, SUM(a.Balance) AS TotalBalance
+  FROM Customers c
+  JOIN Accounts a ON c.CustomerID = a.CustomerID
+  GROUP BY c.CustomerID, c.FirstName, c.LastName;
+</code>        
+      </div>
+  
+      <div class="section">
+        <h2>Materialized View</h2>
+        <p>Stores high-value transactions for faster retrieval.</p>
+        <code>
+  CREATE MATERIALIZED VIEW HighValueTransactions AS
+  SELECT TransactionID, CustomerID, Amount, TransactionDate
+  FROM Transactions
+  WHERE Amount > 50000; </code>
+              </div>
+  
+      <div class="section">
+        <h2>Inline View</h2>
+        <p>Finds the highest transaction amount per customer.</p>
+        <code>
+  SELECT CustomerID, FirstName, LastName, MaxTransaction
+  FROM (
+      SELECT c.CustomerID, c.FirstName, c.LastName, MAX(t.Amount) AS MaxTransaction
+      FROM Customers c
+      JOIN Transactions t ON c.CustomerID = t.CustomerID
+      GROUP BY c.CustomerID, c.FirstName, c.LastName
+  ) AS TempView
+  WHERE MaxTransaction > 50000;</code>
+        
+      </div>
+      <div class="section">
+        <h2>Benefits of Views</h2>
+        <ul>
+          <li> <strong>Data Security</strong> – Restricts access to sensitive data.</li>
+          <li> <strong>Simplifies Queries</strong> – Makes complex queries easier.</li>
+          <li> <strong>Performance Boost</strong> – Materialized views improve speed.</li>
+          <li> <strong>Encapsulation</strong> – Hides database complexity.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>  
+    
+  

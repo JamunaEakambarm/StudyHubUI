@@ -1,0 +1,231 @@
+<div class="nav-buttons">
+  <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+    ⬅ Previous
+  </button>
+
+  <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+    🏠 Home
+  </button>
+
+  <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+    Next ➡
+  </button>
+</div>
+
+<div class="container">
+    <div class="section">
+    <h1>Normalization and Denormalization in SQL</h1>
+  
+    <h2>Normalization</h2>
+    <p class="para-start">
+      Normalization is the process of organizing the data in a database to reduce redundancy and dependency. It involves dividing large tables into smaller ones and defining relationships between them to improve data integrity and minimize data anomalies. The goal is to structure the data so that it can be maintained more efficiently and reduce the chances of inconsistency.
+    </p>
+    <p>
+      Normalization typically involves dividing a database into multiple tables and establishing relationships between those tables. It ensures that the data is stored in the most efficient way while minimizing redundancy.
+    </p>
+</div>
+<div class="section">
+    <h2>Types of Normalization</h2>
+    <p>
+      There are several <strong>normal forms</strong> (NF) that describe the level of normalization of a database. These are the stages of normalization that help structure the data. The main normal forms are:
+    </p>
+    <ul>
+      <li><strong>First Normal Form (1NF)</strong></li>
+      <li><strong>Second Normal Form (2NF)</strong></li>
+      <li><strong>Third Normal Form (3NF)</strong></li>
+      <li><strong>Boyce-Codd Normal Form (BCNF)</strong></li>
+      <li><strong>Fourth Normal Form (4NF)</strong></li>
+      <li><strong>Fifth Normal Form (5NF)</strong></li>
+    </ul>
+  </div>
+    <div class="section">
+    <h2>1. First Normal Form (1NF)</h2>
+    <p>A table is in <strong>First Normal Form (1NF)</strong> if:</p>
+    <ul>
+      <li>Each column contains only atomic (indivisible) values.</li>
+      <li>Each column contains only one value per row.</li>
+      <li>Each column must contain values of the same type.</li>
+      <li>Each record (row) must be unique.</li>
+    </ul>
+    <p>Example:</p>
+    <pre>
+      | CustomerID | Name       | Orders              |
+      |------------|------------|---------------------|
+      | 1          | John Smith | Order1, Order2      |
+      | 2          | Alice Brown| Order3              |
+    </pre>
+    <p>Normalized to 1NF:</p>
+    <pre>
+      | CustomerID | Name        | Order   |
+      |------------|-------------|---------|
+      | 1          | John Smith  | Order1  |
+      | 1          | John Smith  | Order2  |
+      | 2          | Alice Brown | Order3  |
+    </pre>
+    </div>
+    <div class="section">
+    <h2>2. Second Normal Form (2NF)</h2>
+    <p>A table is in <strong>Second Normal Form (2NF)</strong> if:</p>
+    <ul>
+      <li>It is in <strong>First Normal Form (1NF)</strong>.</li>
+      <li>There is no partial dependency, meaning all non-key columns must be fully dependent on the primary key.</li>
+    </ul>
+    <p>Example:</p>
+    <pre>
+      | StudentID | CourseID | StudentName | Instructor  |
+      |-----------|----------|-------------|-------------|
+      | 1         | CS101    | John Smith  | Prof. A     |
+      | 2         | CS102    | Alice Brown | Prof. B     |
+      | 1         | CS102    | John Smith  | Prof. B     |
+    </pre>
+    <p>Normalized to 2NF:</p>
+    <pre>
+      | StudentID | StudentName |
+      |-----------|-------------|
+      | 1         | John Smith  |
+      | 2         | Alice Brown |
+  
+      | CourseID | Instructor |
+      |----------|------------|
+      | CS101    | Prof. A    |
+      | CS102    | Prof. B    |
+  
+      | StudentID | CourseID |
+      |-----------|----------|
+      | 1         | CS101    |
+      | 2         | CS102    |
+      | 1         | CS102    |
+    </pre>
+    </div>
+  <div class="section">
+    <h2>3. Third Normal Form (3NF)</h2>
+    <p>A table is in <strong>Third Normal Form (3NF)</strong> if:</p>
+    <ul>
+      <li>It is in <strong>Second Normal Form (2NF)</strong>.</li>
+      <li>There is no transitive dependency, meaning non-key columns should not depend on other non-key columns.</li>
+    </ul>
+    <p>Example:</p>
+    <pre>
+      | EmployeeID | Name        | Department | DeptLocation |
+      |------------|-------------|------------|--------------|
+      | 1          | John Smith  | HR         | New York     |
+      | 2          | Alice Brown | IT         | San Francisco|
+    </pre>
+    <p>Normalized to 3NF:</p>
+    <pre>
+      | EmployeeID | Name        | Department |
+      |------------|-------------|------------|
+      | 1          | John Smith  | HR         |
+      | 2          | Alice Brown | IT         |
+  
+      | Department | DeptLocation  |
+      |------------|---------------|
+      | HR         | New York      |
+      | IT         | San Francisco |
+    </pre>
+  </div>
+  <div class="section">
+    <h2>4. Boyce-Codd Normal Form (BCNF)</h2>
+    <p>A table is in <strong>Boyce-Codd Normal Form (BCNF)</strong> if:</p>
+    <ul>
+      <li>It is in <strong>Third Normal Form (3NF)</strong>.</li>
+      <li>Every determinant is a candidate key.</li>
+    </ul>
+    <p>Example:</p>
+    <pre>
+      | CourseID | Instructor | RoomNumber |
+      |----------|------------|------------|
+      | CS101    | Prof. A    | 101        |
+      | CS102    | Prof. B    | 102        |
+      | CS103    | Prof. A    | 103        |
+    </pre>
+    <p>Normalized to BCNF:</p>
+    <pre>
+      | CourseID | Instructor |
+      |----------|------------|
+      | CS101    | Prof. A    |
+      | CS102    | Prof. B    |
+      | CS103    | Prof. A    |
+  
+      | Instructor | RoomNumber |
+      |------------|------------|
+      | Prof. A    | 101        |
+      | Prof. B    | 102        |
+    </pre>
+  </div>
+  <div class="section">
+    <h2>5. Fourth Normal Form (4NF)</h2>
+    <p>A table is in <strong>Fourth Normal Form (4NF)</strong> if:</p>
+    <ul>
+      <li>It is in <strong>Boyce-Codd Normal Form (BCNF)</strong>.</li>
+      <li>It has no multi-valued dependencies.</li>
+    </ul>
+    <p>Example:</p>
+    <pre>
+      | EmployeeID | Skill    | Language |
+      |------------|----------|----------|
+      | 1          | SQL      | English  |
+      | 1          | Java     | French   |
+      | 2          | Python   | Spanish  |
+    </pre>
+    <p>Normalized to 4NF:</p>
+    <pre>
+      | EmployeeID | Skill  |
+      |------------|--------|
+      | 1          | SQL    |
+      | 1          | Java   |
+      | 2          | Python |
+  
+      | EmployeeID | Language |
+      |------------|----------|
+      | 1          | English  |
+      | 1          | French   |
+      | 2          | Spanish  |
+    </pre>
+  </div>
+  <div class="section">
+    <h2>6. Fifth Normal Form (5NF)</h2>
+    <p>A table is in <strong>Fifth Normal Form (5NF)</strong> if:</p>
+    <ul>
+      <li>It is in <strong>Fourth Normal Form (4NF)</strong>.</li>
+      <li>It has no join dependency and cannot be decomposed into any smaller tables without losing information.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <h2>Denormalization</h2>
+    <p>Denormalization is the process of combining tables that were previously normalized to improve query performance. In some cases, normalization results in too many tables, which can require complex joins, negatively impacting performance. Denormalization may reintroduce redundancy but can speed up read-heavy queries by reducing the need for complex joins.</p>
+  
+    <p>Example of Denormalization:</p>
+    <pre>
+      | OrderID | ProductID | Quantity | ProductName | Price |
+      |---------|-----------|----------|-------------|-------|
+      | 1       | 101       | 2        | Laptop      | 1000  |
+      | 2       | 102       | 1        | Mouse       | 50    |
+    </pre>
+    </div>
+    <div class="section">
+        <ul>
+        <h2>Conclusion</h2>
+        <li>
+Normalization helps organize data efficiently by reducing redundancy and ensuring data integrity through various normal forms (1NF, 2NF, 3NF, BCNF, 4NF, and 5NF).</li>
+<li>Denormalization can be used when you need to improve read performance by reducing the number of joins, but it comes at the cost of increased data redundancy and maintenance complexity.</li>
+
+</ul>
+<p>When designing a database, it's essential to balance normalization and denormalization based on your application's requirements, workload, and query patterns.</p>
+</div>
+
+  </div>
+  
+  <div class="nav-buttons">
+    <button mat-button color="primary" (click)="navigateTo(previousPage)" [disabled]="!previousPage">
+      ⬅ Previous
+    </button>
+  
+    <button mat-raised-button color="accent" (click)="navigateTo('/SQL/basicsql')">
+      🏠 Home
+    </button>
+  
+    <button mat-button color="primary" (click)="navigateTo(nextPage)" [disabled]="!nextPage">
+      Next ➡
+    </button>
+  </div>
