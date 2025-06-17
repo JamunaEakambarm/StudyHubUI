@@ -13,7 +13,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/employee-app",
+            "outputPath": "dist/browser",
+            "baseHref": "./",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -38,21 +39,16 @@
             ]
           },
           "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
-                }
-              ],
-              "outputHashing": "all"
-            },
+           "production": {
+  "outputHashing": "none",
+  "baseHref": "./",
+  "serviceWorker": false,
+  "budgets": [],
+  "optimization": {
+    "scripts": false,
+    "styles": true
+  }
+},
             "development": {
               "optimization": false,
               "extractLicenses": false,

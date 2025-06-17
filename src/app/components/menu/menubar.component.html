@@ -5,18 +5,22 @@
   </button>
    Add more menu items here as needed 
 </nav> -->
-
 <nav class="menu-bar">
-  <!-- MODIFIED: Added aria-expanded and simplified icon handling -->
   <button mat-button class="menu-item" 
-          [attr.aria-expanded]="sqlMenuOpen" 
-          (click)="toggleSqlMenu()">
+          [attr.aria-expanded]="sqlMenuOpen()" 
+          (click)="toggleSqlMenu()"
+          >
     SQL
-    <!-- CHANGED: Single icon with rotation instead of icon swap -->
-    
-    <mat-icon>{{ sqlMenuOpen ? 'close' : 'menu' }}</mat-icon>
+     <mat-icon>{{ sqlMenuOpen() ? 'close' : 'menu' }}</mat-icon>
   </button>
-  <!-- Add more menu items here as needed -->
-</nav>
 
+  <button mat-button class="menu-item" 
+          [attr.aria-expanded]="typescriptMenuOpen()" 
+          (click)="toggleTypeScriptMenu()"
+         >
+    TypeScript
+    
+    <mat-icon>{{ typescriptMenuOpen() ? 'close' : 'menu' }}</mat-icon>
+  </button>
+</nav>
 

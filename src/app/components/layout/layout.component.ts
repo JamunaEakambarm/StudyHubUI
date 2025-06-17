@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,6 +9,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { TopbarComponent } from '../topbar/topbar.component';
 import { MenubarComponent } from "../menu/menubar.component";
+import { DeviceServiceService } from '../../services/device-service.service';
 
 
 @Component({
@@ -25,6 +26,7 @@ import { MenubarComponent } from "../menu/menubar.component";
     SidebarComponent,
     TopbarComponent,
     MenubarComponent
+    
 ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css',
@@ -36,8 +38,11 @@ import { MenubarComponent } from "../menu/menubar.component";
   }
 })
 export class LayoutComponent {
-  // Inject the Router
-  // Optional: Dynamic plane control
+  private deviceService = inject(DeviceServiceService);
+
+  get isMobile() {
+    return this.deviceService.ismobile; 
+  }
   planeSpeed = '18s';
   planeSize = '120px';
   private router = inject(Router);
@@ -48,6 +53,14 @@ export class LayoutComponent {
     img.onload = () => console.log('Image loaded');
     img.onerror = () => console.error('Failed to load image');
   }
+  get sidenavMode(): MatDrawerMode {
+    return this.isMobile()? 'over' : 'side';
+  }
+
+  get shouldSidenavOpen(): boolean {
+    return !this.isMobile;
+  }
+  
   // Navigate to the register page
   navigateToRegister() {
     this.router.navigate(['/register']);
@@ -56,4 +69,6 @@ export class LayoutComponent {
   onNavigationStart() {
     this.planeSpeed = '12s'; // Faster during navigation
   }
+
+
 }

@@ -10,7 +10,7 @@ import { TopbarComponent } from '../topbar/topbar.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
-import { SidebarserviceService } from '../../services/sidebarservice.service';
+import { Sidebar_service } from '../../services/Sidebar_service.service';
 
 
 
@@ -33,10 +33,16 @@ import { SidebarserviceService } from '../../services/sidebarservice.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent {private sidebarService = inject(SidebarserviceService);
+export class SidebarComponent {private sidebarService = inject(Sidebar_service);
   
   get sqlMenuOpen():boolean {
     return this.sidebarService.sqlMenuOpen();
+  }
+  get isMobile(): boolean {
+    return window.innerWidth < 768;
+  }
+  get typescriptMenuOpen():boolean{
+    return this.sidebarService.typescriptMenuOpen();
   }
 
 }

@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { Router, RouterLink } from '@angular/router';
 import { RegistrationLoginService } from '../../services/registration-login.service';
+import { DeviceServiceService } from '../../services/device-service.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ import { RegistrationLoginService } from '../../services/registration-login.serv
 })
 export class TopbarComponent {
   @Input() sidenav!: MatSidenav; // Accept the mat-sidenav instance
-
+  private deviceService = inject(DeviceServiceService);  
   // Inject the RegistrationLoginService and Router
   private authService = inject(RegistrationLoginService);
   private router = inject(Router);
@@ -45,6 +46,8 @@ export class TopbarComponent {
 
   // Toggle the sidebar
   toggleSidebar() {
+    if (this.deviceService.ismobile()) {
     this.sidenav.toggle(); // Call the toggle method on the sidenav instance
+    }
   }
 }

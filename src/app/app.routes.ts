@@ -35,6 +35,7 @@ import { RegistrationComponent } from './courses/sqltutorial/User/login/registra
 import { LoginPageComponent } from './courses/sqltutorial/User/login/login.component';
 import { HomeTutorialComponent } from './courses/sqltutorial/User/home/home-tutorial/home-tutorial.component';
 import { AuthGuard } from './courses/sqltutorial/User/guards/auth.guard';
+import { TypeScriptIntoComponent } from './TypeScriptTutorial/type-script-into/type-script-into.component';
 
 
 export const routes: Routes = [
@@ -84,7 +85,12 @@ export const routes: Routes = [
           
         ],
       },
-      
+      {
+        path: 'TypeScript',
+        children: [
+          { path: 'TypeScriptIntro', component: TypeScriptIntoComponent }
+        ],
+      },
       { path: '', redirectTo: 'courses', pathMatch: 'full' }
     ]
   }

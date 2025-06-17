@@ -1,11 +1,12 @@
 import { Component, effect, HostListener, Input, Optional } from '@angular/core';
-import { SidebarserviceService } from '../../services/sidebarservice.service';
+import { Sidebar_service } from '../../services/Sidebar_service.service';
 import { inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-menubar',
   standalone: true,
@@ -16,14 +17,13 @@ import { MatSidenav } from '@angular/material/sidenav';
 export class MenubarComponent {
   @Input() @Optional() sidenav!: MatSidenav; // Accept the mat-sidenav instance
   
-  private sidebarService = inject(SidebarserviceService);
+  private sidebarService = inject(Sidebar_service);
+  sqlMenuOpen = this.sidebarService.sqlMenuOpen;
+  typescriptMenuOpen = this.sidebarService.typescriptMenuOpen;
   
- 
-  // sqlMenuOpenEffect = effect(() => {
-  //   console.log('SQL Menu state changed:', this.sidebarService.sqlMenuOpen());    
-  // });
+    
 
-  constructor(private ss: SidebarserviceService) { 
+  constructor(private ss: Sidebar_service,private router: Router) { 
 
      // Register the sidenav instance when component initializes
      effect(() => {
@@ -33,24 +33,59 @@ export class MenubarComponent {
     });
   }
   
-  get sqlMenuOpen() {
-    return this.ss.sqlMenuOpen();
+  // get sqlMenuOpen() {
+  //   return this.ss.sqlMenuOpen();
+  // }
+  // get typescriptMenuOpen()
+  // {
+  //   return this.ss.typescriptMenuOpen();
+  // }
+toggleSqlMenu() {
+  if (!this.ss.sqlMenuOpen()) {
+    this.router.navigate(['/SQL']);
+    this.ss.openSqlMenu();
+  } else {
+    this.ss.closeSqlMenu();
   }
+}
 
-  toggleSqlMenu() {
-    
-    this.ss.toggleSqlMenu();
-
-
+toggleTypeScriptMenu() {
+  if (!this.ss.typescriptMenuOpen()) {
+    this.router.navigate(['/TypeScript']);
+    this.ss.openTypeScriptMenu();
+  } else {
+    this.ss.closeTypeScriptMenu();
   }
+}
+
+  // toggleSqlMenu() {    
+  //   this.ss.toggleSqlMenu();
+  // }
+
+  
+  // toggleTypeScriptMenu()
+  // {
+  //   this.ss.toggleTypeScriptMenu();
+  // }
   // This is used to close the SQL menu from the SQL editor
   closeSqlMenu() {
     this.ss.closeSqlMenu();
     
   }
+  
+  CloseTypeScriptMenu()
+  {
+    this.ss.closeTypeScriptMenu();
+  }
+
   openSqlMenu() {
     this.ss.openSqlMenu();
     
+  }
+
+  openTypeScriptMenu()
+  {
+    this.ss.openTypeScriptMenu();
   }
 
 }

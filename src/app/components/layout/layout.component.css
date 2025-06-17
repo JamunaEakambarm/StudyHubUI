@@ -56,7 +56,7 @@ mat-sidenav-content {
   z-index: 1;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .content-area {
     margin-left: 0;
     width: 100%;
